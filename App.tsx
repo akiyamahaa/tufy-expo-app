@@ -1,11 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
+import { Provider } from 'react-redux';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
 import GlobalStyles from 'utils/styles';
 import TabNav from 'navigation/TabNav';
+import store from 'redux/store';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -19,12 +21,14 @@ const MyTheme = {
 export default function App() {
   return (
     <SafeAreaProvider style={[styles.root, GlobalStyles.AndroidSafeArea]}>
-      <NativeBaseProvider>
-        <NavigationContainer theme={MyTheme}>
-          <TabNav />
-          <StatusBar style="auto" />
-        </NavigationContainer>
-      </NativeBaseProvider>
+      <Provider store={store}>
+        <NativeBaseProvider>
+          <NavigationContainer theme={MyTheme}>
+            <TabNav />  
+            <StatusBar style="auto" />
+          </NavigationContainer>
+        </NativeBaseProvider>
+      </Provider>
     </SafeAreaProvider>
   );
 }

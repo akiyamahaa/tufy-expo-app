@@ -13,7 +13,8 @@ module.exports = function(api) {
             screens: ['./src/screens'],
             assets: ['./assets'],
             navigation: ['./src/navigation'],
-            utils: ['./src//utils']
+            utils: ['./src//utils'],
+            redux:['./src/redux']
           },
         },
       ],
