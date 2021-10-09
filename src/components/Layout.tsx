@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   imgHeader: {
     width: Dimensions.get("screen").width,
-    height: Dimensions.get("screen").height * 0.3,
+    height: Dimensions.get("screen").height * 0.36,
     zIndex: 0,
   },
   logo: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic'
   },
   children: {
-    marginTop: -Dimensions.get("screen").height * 0.21,
+    marginTop: -Dimensions.get("screen").height * 0.275,
     height: '100%'
   }
 });
