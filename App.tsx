@@ -1,13 +1,14 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { NativeBaseProvider } from 'native-base';
+import { Box, NativeBaseProvider } from 'native-base';
 import GlobalStyles from 'utils/styles';
 import TabNav from 'navigation/TabNav';
 import store from 'redux/store';
+import CustomInput from 'components/CustomInput';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -24,7 +25,10 @@ export default function App() {
       <Provider store={store}>
         <NativeBaseProvider>
           <NavigationContainer theme={MyTheme}>
-            <TabNav />  
+            <TabNav />
+            {/* <Box style={{ padding: 20 }}>
+              <CustomInput />
+            </Box> */}
             <StatusBar style="auto" />
           </NavigationContainer>
         </NativeBaseProvider>
