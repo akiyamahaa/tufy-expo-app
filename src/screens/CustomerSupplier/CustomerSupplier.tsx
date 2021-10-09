@@ -1,17 +1,26 @@
-import Container from 'components/Container';
-import Layout from 'components/Layout';
-import { Text, Box } from 'native-base';
-import React, { useState } from 'react';
+import Container from "components/Container";
+import CreateSearchBar from "components/CreateSearchBar/CreateSearchBar";
+import CustomerList from "components/CustomerList/CustomerList";
+import DistributorList from "components/DistributorList/DistributorList";
+import Layout from "components/Layout";
+import React, { useState } from "react";
 
 interface Props {}
 
 const CustomerSupplierScreen = (props: Props) => {
   const [active, setActive] = useState(true);
-  
+
   return (
     <Layout back={true}>
-      <Container button={true} textFirstButton='Phân phối' textSecondButton='Khách hàng' active={active} onPress={setActive}>
-     
+      <Container
+        button={true}
+        textFirstButton="Phân phối"
+        textSecondButton="Khách hàng"
+        active={active}
+        onPress={setActive}
+      >
+        <CreateSearchBar search={() => null} />
+        {active ? <DistributorList /> : <CustomerList />}
       </Container>
     </Layout>
   );

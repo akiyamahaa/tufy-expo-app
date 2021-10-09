@@ -1,6 +1,6 @@
-import { Text, View } from "native-base";
+import { ScrollView, Text, View } from "native-base";
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 
 interface Props {
   button?: boolean;
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   button: {
-    width: 120,
+    width: Dimensions.get("screen").width * 0.36,
     paddingVertical: 6,
     borderRadius: 10,
     shadowColor: "#000",
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   childrenContainer: {
     marginTop: 20,
     paddingHorizontal: 10,
+    paddingBottom: 30,
   },
 });
 
