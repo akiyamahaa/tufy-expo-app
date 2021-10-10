@@ -5,15 +5,16 @@ import SearchField from "./SearchField";
 
 interface Props {
   search: (text: string) => void;
+  setShowModal?: (modal: boolean) => void;
 }
 
 const CreateSearchBar = (props: Props) => {
-  const { search } = props;
+  const { search, setShowModal } = props;
   return (
     <View style={styles.root}>
       <TouchableOpacity
         activeOpacity={0.6}
-        // onPress={() => onPress(true)}
+        onPress={() => setShowModal && setShowModal(true)}
         style={styles.button}
       >
         <Text style={styles.text}>Tạo mới</Text>
