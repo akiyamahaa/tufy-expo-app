@@ -9,6 +9,7 @@ import GlobalStyles from 'utils/styles';
 import TabNav from 'navigation/TabNav';
 import store from 'redux/store';
 import CustomInput from 'components/CustomInput';
+import 'react-native-gesture-handler';
 
 const MyTheme = {
   ...DefaultTheme,

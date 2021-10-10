@@ -1,21 +1,21 @@
 import React from "react";
 import { Button, Modal, FormControl, Input, Icon, Text } from "native-base";
 import { useState } from "react";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 
 interface Props {
   setShowModal: (modal: boolean) => void;
   showModal: boolean;
 }
-const NewCategory = (props: Props) => {
+const NewProduct = (props: Props) => {
   const { setShowModal, showModal } = props;
   return (
     <>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="400px">
           <Modal.CloseButton />
-          <Modal.Header>{"Tạo mới loại sản phẩm"}</Modal.Header>
+          <Modal.Header>{"Tạo mới sản phẩm"}</Modal.Header>
           <Modal.Body>
             <FormControl mt="3">
               <Input
@@ -27,7 +27,46 @@ const NewCategory = (props: Props) => {
                     color="muted.400"
                   />
                 }
-                placeholder="Tên loại sản phẩm"
+                placeholder="Tên sản phẩm"
+              />
+            </FormControl>
+            <FormControl mt="3">
+              <Input
+                InputLeftElement={
+                  <Icon
+                    as={<FontAwesome5 name="warehouse" size={24} color="black" />}
+                    size={5}
+                    ml="2"
+                    color="muted.400"
+                  />
+                }
+                placeholder="Phân phối"
+              />
+            </FormControl>
+            <FormControl mt="3">
+              <Input
+                InputLeftElement={
+                  <Icon
+                    as={<Ionicons name="pricetag" size={24} color="black" />}
+                    size={5}
+                    ml="2"
+                    color="muted.400"
+                  />
+                }
+                placeholder="Giá nhập"
+              />
+            </FormControl>
+            <FormControl mt="3">
+              <Input
+                InputLeftElement={
+                  <Icon
+                    as={<Entypo name="price-tag" size={24} color="black" />}
+                    size={5}
+                    ml="2"
+                    color="muted.400"
+                  />
+                }
+                placeholder="Giá bán"
               />
             </FormControl>
           </Modal.Body>
@@ -70,4 +109,4 @@ const styles = StyleSheet.create({
     color: "#5200FF",
   },
 });
-export default NewCategory;
+export default NewProduct;

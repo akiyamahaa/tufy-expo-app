@@ -1,29 +1,39 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import HomeScreen from 'screens/HomeScreen';
-import PostOrderScreen from 'screens/PostOrderScreen';
-import ProductScreen from 'screens/ProductScreen';
-import SettingScreen from 'screens/SettingScreen';
-import StatisticScreen from 'screens/StatisticScreen';
-import EachTab from './components/EachTab';
-import TabButtonCreate from './components/TabButtonCreate';
-import { AntDesign } from '@expo/vector-icons'; 
-import CustomerSupplierScreen from 'screens/CustomerSupplier/CustomerSupplier';
-import CategoriesScreen from 'screens/Categories/Categories';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
+import { StyleSheet } from "react-native";
+import HomeScreen from "screens/HomeScreen";
+import PostOrderScreen from "screens/PostOrderScreen";
+import SettingScreen from "screens/SettingScreen";
+import StatisticScreen from "screens/StatisticScreen";
+import EachTab from "./components/EachTab";
+import TabButtonCreate from "./components/TabButtonCreate";
+import { AntDesign } from "@expo/vector-icons";
+import CustomerSupplierScreen from "screens/CustomerSupplier/CustomerSupplier";
+import CategoriesScreen from "screens/Categories/Categories";
+import { createStackNavigator } from "@react-navigation/stack";
+import ProductScreen from "screens/Products/Products";
 
 interface Props {}
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
+const CategoriesTab = () => {
+  return (
+    <Stack.Navigator initialRouteName="Categories">
+      <Stack.Screen name="CategoriesList" options={{ headerShown: false }} component={CategoriesScreen} />
+      <Stack.Screen name="ProductList" options={{ headerShown: false }} component={ProductScreen} />
+    </Stack.Navigator>
+  );
+};
 const TabNav = (props: Props) => {
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
-        headerShown:false,
+        headerShown: false,
         tabBarStyle: {
-          position: 'absolute',
+          position: "absolute",
           bottom: 25,
           left: 20,
           right: 20,
@@ -44,7 +54,7 @@ const TabNav = (props: Props) => {
       />
       <Tab.Screen
         name="Product"
-        component={ProductScreen}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <EachTab focused={focused} title="Product" />
@@ -63,7 +73,7 @@ const TabNav = (props: Props) => {
       />
       <Tab.Screen
         name="Categories"
-        component={CategoriesScreen}
+        component={CategoriesTab}
         options={{
           tabBarIcon: ({ focused }) => (
             <EachTab focused={focused} title="Categories" />
@@ -85,7 +95,7 @@ const TabNav = (props: Props) => {
 
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: '#7F5DF0',
+    shadowColor: "#7F5DF0",
     shadowOffset: {
       width: 0,
       height: 10,

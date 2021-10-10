@@ -6,6 +6,7 @@ import { StyleSheet } from "react-native";
 import NewCategory from "components/NewCategory/NewCategory";
 import Layout from "components/Layout";
 import Container from "components/Container";
+import CategoriesList from "components/CategoriesList/CategoriesList";
 
 interface Props {}
 
@@ -18,6 +19,7 @@ const CategoriesScreen = (props: Props) => {
       <NewCategory setShowModal={setShowModal} showModal={showModal} />
       <Container>
         <CreateSearchBar search={searh} setShowModal={setShowModal} />
+        <CategoriesList />
       </Container>
     </Layout>
   );
