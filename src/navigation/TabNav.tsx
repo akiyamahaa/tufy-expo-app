@@ -10,6 +10,7 @@ import EachTab from './components/EachTab';
 import TabButtonCreate from './components/TabButtonCreate';
 import { AntDesign } from '@expo/vector-icons'; 
 import CustomerSupplierScreen from 'screens/CustomerSupplier/CustomerSupplier';
+import CategoriesScreen from 'screens/Categories/Categories';
 
 interface Props {}
 
@@ -61,11 +62,11 @@ const TabNav = (props: Props) => {
         }}
       />
       <Tab.Screen
-        name="Statistic"
-        component={StatisticScreen}
+        name="Categories"
+        component={CategoriesScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <EachTab focused={focused} title="Statistic" />
+            <EachTab focused={focused} title="Categories" />
           ),
         }}
       />

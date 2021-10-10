@@ -53,8 +53,7 @@ const Layout = (props: Props) => {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: "#5200FF",
-    display: "flex",
-    flex: 1,
+    minHeight: Dimensions.get('window').height - 100
   },
   container: {
     zIndex: 0,
