@@ -33,7 +33,7 @@ const CategoryCard = (props: Props) => {
       <View>
         <Text style={styles.customerName}>{displayName()}</Text>
       </View>
-      <Text style={styles.customerPhone}>{category.count}</Text>
+      <Text style={styles.customerPhone}>{category.count + ' sp'}</Text>
     </TouchableOpacity>
   );
 };

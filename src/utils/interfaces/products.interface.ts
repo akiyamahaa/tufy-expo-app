@@ -7,6 +7,10 @@ export interface IProduct {
   image?: string;
 }
 
+export interface IProductWithQuantity extends IProduct {
+  quantity: number;
+}
+
 export interface IGetAllProducts {
   page?: number;
   category?: number;

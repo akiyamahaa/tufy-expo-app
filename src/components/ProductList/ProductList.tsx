@@ -1,26 +1,29 @@
-import CategoryCard from "components/CategoryCard/CategoryCard";
 import { useEffect, useState } from "react";
 import { Text, View } from "native-base";
 import React from "react";
-import { ICategoryWithCount } from "utils/interfaces/categories.interface";
+import { IProductWithQuantity } from "utils/interfaces/products.interface";
+import { dataProduct } from "./dataProduct";
+import ProductCard from "components/ProductCard/ProductCard";
 
 interface Props {}
 
-const CategoriesList = (props: Props) => {
-  const [categories, setCategories] = useState<ICategoryWithCount[]>(
-    [] as ICategoryWithCount[]
+const ProductList = (props: Props) => {
+  const [products, setProducts] = useState<IProductWithQuantity[]>(
+    [] as IProductWithQuantity[]
   );
   useEffect(() => {
+    setProducts(dataProduct);
   }, []);
+  console.log('[product]', products);
   return (
     <View style={{ width: '100%', marginTop: 20 }}>
-      {categories?.map((category) => (
-        <React.Fragment key={category.id}>
-          <CategoryCard category={category} />
+      {products?.map((product) => (
+        <React.Fragment key={product.id}>
+          <ProductCard product={product} />
         </React.Fragment>
       ))}
     </View>
   );
 };
 
-export default CategoriesList;
+export default ProductList;
