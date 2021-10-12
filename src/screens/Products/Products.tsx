@@ -3,6 +3,7 @@ import Container from "components/Container";
 import CreateSearchBar from "components/CreateSearchBar/CreateSearchBar";
 import Layout from "components/Layout";
 import NewProduct from "components/NewProduct/NewProduct";
+import ProductList from "components/ProductList/ProductList";
 import React, { useState } from "react";
 
 interface Props {}
@@ -18,6 +19,7 @@ const ProductScreen = (props: Props) => {
       <Container>
         <NewProduct setShowModal={setShowModal} showModal={showModal} />
         <CreateSearchBar search={searh} setShowModal={setShowModal} />
+        <ProductList/>
       </Container>
     </Layout>
   );

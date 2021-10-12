@@ -19,9 +19,16 @@ const ProductCard = (props: Props) => {
     <View style={styles.root}>
       <View>
         <Text style={styles.productName}>{displayName()}</Text>
-        {/* <Text style={styles.productAddress}>{product.}</Text> */}
+        <Text style={styles.productAddress}>{product.quantity + " sp"}</Text>
       </View>
-      <Text style={styles.productPhone}>{product.quantity + ' sp'}</Text>
+      <View>
+        <Text style={styles.price}>
+          {"Giá nhập: " + product.price}
+        </Text>
+        <Text style={styles.purchasePrice}>
+          {"Giá bán: " + product.purchasePrice}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -59,11 +66,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#240046",
   },
-  productPhone: {
+  price: {
     fontFamily: "Roboto",
     fontWeight: "700",
     fontSize: 14,
-    color: "#240046",
+    color: "#fc3003",
+  },
+  purchasePrice: {
+    fontFamily: "Roboto",
+    fontWeight: "700",
+    fontSize: 14,
+    color: "#03c6fc",
   },
 });
 

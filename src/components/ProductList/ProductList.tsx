@@ -14,7 +14,6 @@ const ProductList = (props: Props) => {
   useEffect(() => {
     setProducts(dataProduct);
   }, []);
-  console.log('[product]', products);
   return (
     <View style={{ width: '100%', marginTop: 20 }}>
       {products?.map((product) => (
