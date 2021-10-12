@@ -158,31 +158,31 @@ const CreateStockScreen = (props: Props) => {
             </Box>
           </Box>
           <Box mt="3">
-            <Text bold fontSize={18}>
-              Danh sách sản phẩm
-            </Text>
-            <Box style={styles.productListContainer}>
-              {listProduct.map((eachProduct, index) => (
-                <Box
-                  style={styles.product}
-                  mb="4"
-                  key={`${eachProduct}-${index}`}
-                >
-                  <Box>
-                    <Text bold fontSize={18} m="1">
-                      {eachProduct.name}
-                    </Text>
-                    <Text fontSize={18} m="1">
-                      Số lượng: <Text>{eachProduct.quantity}</Text>
-                    </Text>
-                    <Text fontSize={18} m="1">
-                      Đơn giá: <Text>{eachProduct.quantity}</Text>
-                    </Text>
-                  </Box>
-                </Box>
-              ))}
-              {listProduct.length > 0 && (
-                <>
+            {listProduct.length > 0 && (
+              <>
+                <Text bold fontSize={18} mb="3">
+                  Danh sách sản phẩm
+                </Text>
+                <Box style={styles.productListContainer}>
+                  {listProduct.map((eachProduct, index) => (
+                    <Box
+                      style={styles.product}
+                      mb="4"
+                      key={`${eachProduct}-${index}`}
+                    >
+                      <Box>
+                        <Text bold fontSize={18} m="1">
+                          {eachProduct.name}
+                        </Text>
+                        <Text fontSize={18} m="1">
+                          Số lượng: <Text>{eachProduct.quantity}</Text>
+                        </Text>
+                        <Text fontSize={18} m="1">
+                          Đơn giá: <Text>{eachProduct.quantity}</Text>
+                        </Text>
+                      </Box>
+                    </Box>
+                  ))}
                   <Text textAlign="right" bold fontSize={20}>
                     Tổng tiền:{' '}
                     <Text bold color="#008B2F" fontSize={20}>
@@ -210,9 +210,9 @@ const CreateStockScreen = (props: Props) => {
                       </Box>
                     </TouchableOpacity>
                   </Box>
-                </>
-              )}
-            </Box>
+                </Box>
+              </>
+            )}
           </Box>
         </Box>
       </Box>

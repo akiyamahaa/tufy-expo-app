@@ -12,13 +12,13 @@ import { AntDesign } from '@expo/vector-icons';
 import CustomerSupplierScreen from 'screens/CustomerSupplier/CustomerSupplier';
 import CategoriesScreen from 'screens/Categories/Categories';
 import ProductScreen from 'screens/Products/Products';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from 'screens/home/HomeScreen';
+import { createStackNavigator } from '@react-navigation/stack';
 
 interface Props {}
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const CategoriesTab = () => {
   return (

@@ -1,7 +1,6 @@
 import Container from 'components/Container';
 import CreateSearchBar from 'components/CreateSearchBar/CreateSearchBar';
 import Layout from 'components/Layout';
-import { Text, Box } from 'native-base';
 import React, { useState } from 'react';
 import SearchStockDialog from './components/SearchStockDialog';
 import StockInList from './components/StockInList';
