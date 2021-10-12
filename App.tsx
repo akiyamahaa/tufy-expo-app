@@ -4,12 +4,13 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { Box, extendTheme, NativeBaseProvider } from 'native-base';
+import { extendTheme, NativeBaseProvider } from 'native-base';
 import GlobalStyles from 'utils/styles';
 import TabNav from 'navigation/TabNav';
 import store from 'redux/store';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import 'react-native-gesture-handler';
 
 const MyTheme = {
   ...DefaultTheme,

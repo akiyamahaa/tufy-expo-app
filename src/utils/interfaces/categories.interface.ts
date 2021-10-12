@@ -3,6 +3,10 @@ export interface ICategories {
   name: string;
 }
 
+export interface ICategoryWithCount extends ICategories {
+  count: number;
+}
+
 export interface IGetAllCategories {
   page?: number;
 }

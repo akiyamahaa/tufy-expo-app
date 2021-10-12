@@ -1,17 +1,41 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import StatisticScreen from 'screens/StatisticScreen';
-import EachTab from './components/EachTab';
-import CustomerSupplierScreen from 'screens/CustomerSupplier/CustomerSupplier';
-import HomeScreen from 'screens/home/HomeScreen';
 import StockScreen from 'screens/stock/StockScreen';
 import CreateStockScreen from 'screens/stock/CreateStockScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StyleSheet } from 'react-native';
+import PostOrderScreen from 'screens/PostOrderScreen';
+import SettingScreen from 'screens/SettingScreen';
+import StatisticScreen from 'screens/StatisticScreen';
+import EachTab from './components/EachTab';
+import TabButtonCreate from './components/TabButtonCreate';
+import { AntDesign } from '@expo/vector-icons';
+import CustomerSupplierScreen from 'screens/CustomerSupplier/CustomerSupplier';
+import CategoriesScreen from 'screens/Categories/Categories';
+import ProductScreen from 'screens/Products/Products';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from 'screens/home/HomeScreen';
 
 interface Props {}
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
+const CategoriesTab = () => {
+  return (
+    <Stack.Navigator initialRouteName="Categories">
+      <Stack.Screen
+        name="CategoriesList"
+        options={{ headerShown: false }}
+        component={CategoriesScreen}
+      />
+      <Stack.Screen
+        name="ProductList"
+        options={{ headerShown: false }}
+        component={ProductScreen}
+      />
+    </Stack.Navigator>
+  );
+};
 const TabNav = (props: Props) => {
   return (
     <Tab.Navigator
@@ -44,7 +68,7 @@ const TabNav = (props: Props) => {
       />
       <Tab.Screen
         name="Category"
-        component={StatisticScreen}
+        component={CategoriesTab}
         options={{
           tabBarIcon: ({ focused }) => (
             <EachTab focused={focused} title="category" />

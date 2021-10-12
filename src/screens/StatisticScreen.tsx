@@ -6,7 +6,7 @@ interface Props {}
 const StatisticScreen = (props: Props) => {
   return (
     <Box>
-      <Text>Statistic</Text>
+      <Text>Statistic 123</Text>
     </Box>
   );
 };
