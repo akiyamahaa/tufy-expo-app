@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { Box, NativeBaseProvider } from 'native-base';
+import { Box, extendTheme, NativeBaseProvider } from 'native-base';
 import GlobalStyles from 'utils/styles';
 import TabNav from 'navigation/TabNav';
 import store from 'redux/store';
-import CustomInput from 'components/CustomInput';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -19,17 +20,53 @@ const MyTheme = {
   },
 };
 
+const theme = extendTheme({
+  components: {
+    Text: {
+      baseStyle: {
+        fontFamily: 'roboto',
+      },
+    },
+    /*
+      Element:{
+        baseStyle:{},
+        defaultProps:{},
+        variant:{},
+        size:{},
+      }
+    */
+  },
+});
+
 export default function App() {
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  const fetchFonts = () => {
+    return Font.loadAsync({
+      'roboto-bold': require('assets/fonts/Roboto-Bold.ttf'),
+      'roboto-italic': require('assets/fonts/Roboto-Italic.ttf'),
+      roboto: require('assets/fonts/Roboto-Regular.ttf'),
+    });
+  };
+
+  if (!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setDataLoaded(true)}
+        onError={console.warn}
+      />
+    );
+  }
+
   return (
     <SafeAreaProvider style={[styles.root, GlobalStyles.AndroidSafeArea]}>
       <Provider store={store}>
-        <NativeBaseProvider>
+        <NativeBaseProvider theme={theme}>
           <NavigationContainer theme={MyTheme}>
             <TabNav />
-            {/* <Box style={{ padding: 20 }}>
-              <CustomInput />
-            </Box> */}
             <StatusBar style="auto" />
+            {/* <InventoryScreen /> */}
           </NavigationContainer>
         </NativeBaseProvider>
       </Provider>
