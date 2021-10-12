@@ -17,9 +17,8 @@ const ProductScreen = (props: Props) => {
   return (
     <Layout back>
       <Container>
-        <NewProduct setShowModal={setShowModal} showModal={showModal} />
         <CreateSearchBar search={searh} setShowModal={setShowModal} />
-        <ProductList/>
+        <ProductList setShowModal={setShowModal} showModal={showModal} />
       </Container>
     </Layout>
   );
