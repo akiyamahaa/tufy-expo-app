@@ -1,15 +1,27 @@
 import React from "react";
-import { Button, Modal, FormControl, Input, Icon, Text } from "native-base";
+import { Modal, FormControl, Input, Icon, Text } from "native-base";
 import { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { ICategories } from "utils/interfaces/categories.interface";
 
 interface Props {
   setShowModal: (modal: boolean) => void;
   showModal: boolean;
+  createNew: (value: ICategories) => void;
 }
 const NewCategory = (props: Props) => {
-  const { setShowModal, showModal } = props;
+  const { setShowModal, showModal, createNew } = props;
+  const [name, setName] = useState("");
+  const handleSave = () => {
+    if (name) {
+      const newC = {
+        name,
+      };
+      createNew(newC);
+      setShowModal(false);
+    }
+  };
   return (
     <>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -28,13 +40,14 @@ const NewCategory = (props: Props) => {
                   />
                 }
                 placeholder="Tên loại sản phẩm"
+                onChangeText={(text) => setName(text)}
               />
             </FormControl>
           </Modal.Body>
           <Modal.Footer>
             <TouchableOpacity
               activeOpacity={0.6}
-              onPress={() => setShowModal(false)}
+              onPress={handleSave}
               style={styles.button}
             >
               <Text style={styles.text}>Lưu</Text>

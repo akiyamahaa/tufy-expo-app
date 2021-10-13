@@ -13,11 +13,7 @@ const CustomerSupplierScreen = (props: Props) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <Layout back={true}>
-      <NewCustomerSupplier
-        showModal={showModal}
-        setShowModal={setShowModal}
-        active={active}
-      />
+      
       <Container
         button={true}
         textFirstButton="Phân phối"
@@ -25,8 +21,9 @@ const CustomerSupplierScreen = (props: Props) => {
         active={active}
         onPress={setActive}
       >
-        <CreateSearchBar setShowModal={setShowModal} search={() => null} />
-        {active ? <DistributorList /> : <CustomerList />}
+        {active ? 
+        <DistributorList showModal={showModal} setShowModal={setShowModal}/> 
+        : <CustomerList showModal={showModal} setShowModal={setShowModal} />}
       </Container>
     </Layout>
   );

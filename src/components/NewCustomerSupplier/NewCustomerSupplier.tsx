@@ -3,14 +3,32 @@ import { Button, Modal, FormControl, Input, Icon, Text } from "native-base";
 import { useState } from "react";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { ICustomer } from "utils/interfaces/customers.interface";
+import { IDistributor } from "utils/interfaces/distributors.interface";
 
 interface Props {
   active: boolean;
   setShowModal: (modal: boolean) => void;
   showModal: boolean;
+  createNew: (value: ICustomer | IDistributor) => void;
 }
 const NewCustomerSupplier = (props: Props) => {
-  const { active, setShowModal, showModal } = props;
+  const { active, setShowModal, showModal, createNew } = props;
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const disabledCondition = !name || !phone || !address;
+  const handleSave = () => {
+    if (!disabledCondition) {
+      const newCD = {
+        name,
+        phone,
+        address,
+      };
+      createNew(newCD);
+      setShowModal(false);
+    }
+  };
   return (
     <>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -30,7 +48,8 @@ const NewCustomerSupplier = (props: Props) => {
                     color="muted.400"
                   />
                 }
-                placeholder="Tên khách hàng"
+                placeholder={"Tên " + (active ? "phân phối" : "khách hàng")}
+                onChangeText={(text) => setName(text)}
               />
             </FormControl>
             <FormControl mt="3">
@@ -44,6 +63,7 @@ const NewCustomerSupplier = (props: Props) => {
                   />
                 }
                 placeholder="Số điện thoại"
+                onChangeText={(text) => setPhone(text)}
               />
             </FormControl>
             <FormControl mt="3">
@@ -57,16 +77,22 @@ const NewCustomerSupplier = (props: Props) => {
                   />
                 }
                 placeholder="Địa chỉ"
+                onChangeText={(text) => setAddress(text)}
               />
             </FormControl>
           </Modal.Body>
           <Modal.Footer>
             <TouchableOpacity
+              disabled={disabledCondition}
               activeOpacity={0.6}
-              onPress={() => setShowModal(false)}
+              onPress={handleSave}
               style={styles.button}
             >
-              <Text style={styles.text}>Lưu</Text>
+              <Text
+                style={[styles.text, disabledCondition && { color: "#c2c2d6" }]}
+              >
+                Lưu
+              </Text>
             </TouchableOpacity>
           </Modal.Footer>
         </Modal.Content>
