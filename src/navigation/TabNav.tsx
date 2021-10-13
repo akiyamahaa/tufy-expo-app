@@ -1,41 +1,16 @@
 import React from 'react';
-import StockScreen from 'screens/stock/StockScreen';
-import CreateStockScreen from 'screens/stock/CreateStockScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
-import PostOrderScreen from 'screens/PostOrderScreen';
-import SettingScreen from 'screens/SettingScreen';
-import StatisticScreen from 'screens/StatisticScreen';
 import EachTab from './components/EachTab';
-import TabButtonCreate from './components/TabButtonCreate';
-import { AntDesign } from '@expo/vector-icons';
 import CustomerSupplierScreen from 'screens/CustomerSupplier/CustomerSupplier';
-import CategoriesScreen from 'screens/Categories/Categories';
-import ProductScreen from 'screens/Products/Products';
-import HomeScreen from 'screens/home/HomeScreen';
-import { createStackNavigator } from '@react-navigation/stack';
+import CategoriesTab from './CategoriesTab';
+import HomeTab from './HomeTab';
+import StockTab from './StockTab';
 
 interface Props {}
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
-const CategoriesTab = () => {
-  return (
-    <Stack.Navigator initialRouteName="Categories">
-      <Stack.Screen
-        name="CategoriesList"
-        options={{ headerShown: false }}
-        component={CategoriesScreen}
-      />
-      <Stack.Screen
-        name="ProductList"
-        options={{ headerShown: false }}
-        component={ProductScreen}
-      />
-    </Stack.Navigator>
-  );
-};
 const TabNav = (props: Props) => {
   return (
     <Tab.Navigator
@@ -47,10 +22,11 @@ const TabNav = (props: Props) => {
           ...styles.bottomTabStyle,
         },
       }}
+      initialRouteName="HomeTab"
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeTab"
+        component={HomeTab}
         options={{
           tabBarIcon: ({ focused }) => (
             <EachTab focused={focused} title="home" />
@@ -58,8 +34,8 @@ const TabNav = (props: Props) => {
         }}
       />
       <Tab.Screen
-        name="Stock"
-        component={CreateStockScreen}
+        name="StockTab"
+        component={StockTab}
         options={{
           tabBarIcon: ({ focused }) => (
             <EachTab focused={focused} title="stock" />

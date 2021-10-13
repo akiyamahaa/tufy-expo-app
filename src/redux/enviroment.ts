@@ -1,9 +1,9 @@
 const ENV = {
   dev: {
-    API_BASE_URL: ''
+    API_BASE_URL: 'https://tufy.ap.ngrok.io/'
   },
   prod: {
-    API_BASE_URL: ''
+    API_BASE_URL: 'https://tufy.ap.ngrok.io/'
   }
 };
 

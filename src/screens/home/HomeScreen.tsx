@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import { Text, Box, Image } from 'native-base';
 import React from 'react';
 import {
@@ -42,6 +43,7 @@ const infoMockup: any = {
 };
 
 const HomeScreen = (props: Props) => {
+  const navigation = useNavigation<any>();
   return (
     <SafeAreaView>
       <ScrollView>
@@ -64,7 +66,7 @@ const HomeScreen = (props: Props) => {
               <CardHome data={infoMockup[option]} />
             </Box>
           ))}
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Inventory')}>
             <Box style={styles.btnStyle}>
               <Text color="#5200FF" bold fontSize={24}>
                 Tồn kho

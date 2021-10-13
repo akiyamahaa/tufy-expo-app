@@ -67,7 +67,6 @@ export default function App() {
           <NavigationContainer theme={MyTheme}>
             <TabNav />
             <StatusBar style="auto" />
-            {/* <InventoryScreen /> */}
           </NavigationContainer>
         </NativeBaseProvider>
       </Provider>

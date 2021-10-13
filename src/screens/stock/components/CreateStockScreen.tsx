@@ -1,9 +1,14 @@
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 import Layout from 'components/Layout';
 import moment from 'moment';
-import { Box, FormControl, Icon, Input, Text } from 'native-base';
+import { Box, FormControl, Icon, Input, Modal, Text } from 'native-base';
 import React, { useState } from 'react';
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  Dimensions,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 
@@ -15,16 +20,14 @@ interface IProduct {
 }
 
 const CreateStockScreen = (props: Props) => {
+  const { width } = Dimensions.get('window');
+  //STATE
   const [distributor, setDistributor] = useState('');
   const [product, setProduct] = useState('banhgau');
   const [productQuantity, setProductQuantity] = useState(1);
   const [date, setDate] = useState(new Date());
   const [showDate, setShowDate] = useState(false);
   const [listProduct, setListProduct] = useState<IProduct[]>([]);
-  console.log(
-    '🚀 ~ file: CreateStockScreen.tsx ~ line 24 ~ CreateStockScreen ~ listProduct',
-    listProduct
-  );
 
   const onChangeDate = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
@@ -37,10 +40,6 @@ const CreateStockScreen = (props: Props) => {
       name: product,
       quantity: productQuantity,
     };
-    console.log(
-      '🚀 ~ file: CreateStockScreen.tsx ~ line 37 ~ onAddProduct ~ newProduct',
-      newProduct
-    );
     setListProduct([...listProduct, newProduct]);
   };
 

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import Container from 'components/Container';
 import CreateSearchBar from 'components/CreateSearchBar/CreateSearchBar';
 import Layout from 'components/Layout';
@@ -9,8 +10,15 @@ import StockOutList from './components/StockOutList';
 interface Props {}
 
 const StockScreen = (props: Props) => {
+  const navigation = useNavigation<any>();
+  const [showModal, setShowModal] = useState(false);
+
   const [active, setActive] = useState(true);
   const [showSearchModal, setShowSearchModal] = useState(false);
+
+  const navigateCreateStock = () => {
+    navigation.navigate('CreateStock');
+  };
 
   return (
     <Layout back={true}>
@@ -25,7 +33,10 @@ const StockScreen = (props: Props) => {
         active={active}
         onPress={setActive}
       >
-        <CreateSearchBar search={() => setShowSearchModal(true)} />
+        <CreateSearchBar
+          onCreatePress={navigateCreateStock}
+          search={() => setShowSearchModal(true)}
+        />
         {active ? <StockInList /> : <StockOutList />}
       </Container>
     </Layout>
