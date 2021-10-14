@@ -1,4 +1,3 @@
-import CreateSearchBar from "components/CreateSearchBar/CreateSearchBar";
 import { useState } from "react";
 import React from "react";
 import { StyleSheet } from "react-native";
@@ -10,12 +9,9 @@ interface Props {}
 
 const CategoriesScreen = (props: Props) => {
   const [showModal, setShowModal] = useState(false);
-  const searh = () => {};
-
   return (
     <Layout back={true}>
       <Container>
-        <CreateSearchBar search={searh} setShowModal={setShowModal} refresh={() => null} />
         <CategoriesList showModal={showModal} setShowModal={setShowModal} />
       </Container>
     </Layout>

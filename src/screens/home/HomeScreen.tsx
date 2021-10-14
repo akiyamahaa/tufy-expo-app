@@ -6,6 +6,7 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import CardHome from './components/CardHome';
 
@@ -46,7 +47,7 @@ const HomeScreen = (props: Props) => {
   const navigation = useNavigation<any>();
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView style={{ minHeight: Dimensions.get('screen').height }}>
         <Image
           style={styles.bgContainer}
           source={require('assets/images/background-2.png')}
@@ -82,7 +83,7 @@ const HomeScreen = (props: Props) => {
 const styles = StyleSheet.create({
   bgContainer: {
     position: 'absolute',
-    flex: 1,
+    minHeight: Dimensions.get('screen').height,
     width: '100%',
   },
   titleContainer: {

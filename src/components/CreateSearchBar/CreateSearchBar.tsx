@@ -8,7 +8,7 @@ interface Props {
   search: (text: string) => void;
   setShowModal?: (modal: boolean) => void;
   onCreatePress?: () => void;
-  refresh: () => void;
+  refresh?: () => void;
 }
 
 const CreateSearchBar = (props: Props) => {
@@ -29,14 +29,16 @@ const CreateSearchBar = (props: Props) => {
         <Text style={styles.text}>Tạo mới</Text>
       </TouchableOpacity>
       <SearchField widthFull={false} onPress={search} />
-      <TouchableOpacity style={styles.buttonRefresh} onPress={refresh}>
-        <Icon
-          as={<EvilIcons name="refresh" size={24} color="black" />}
-          size={5}
-          ml="2"
-          color="#000"
-        />
-      </TouchableOpacity>
+      {refresh && (
+        <TouchableOpacity style={styles.buttonRefresh} onPress={refresh}>
+          <Icon
+            as={<EvilIcons name="refresh" size={24} color="black" />}
+            size={5}
+            ml="2"
+            color="#000"
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
   buttonRefresh: {
     marginLeft: 4,
 
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingRight: 6,
     paddingVertical: 12,
     borderRadius: 10,
