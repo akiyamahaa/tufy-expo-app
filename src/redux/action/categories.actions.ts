@@ -55,6 +55,6 @@ export const searchCategories = (
   dispatchApi(dispatch, {
     types: Object.keys(SearchCategoriessKeys),
     method: "get",
-    endpoint: "/categories/search?name=%2B" + name,
+    endpoint: "/categories/search?name=" + name,
     body: {},
   });

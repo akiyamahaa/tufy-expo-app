@@ -18,7 +18,7 @@ const ProductScreen = (props: Props) => {
     <Layout back>
       <Container>
         <CreateSearchBar search={searh} setShowModal={setShowModal} />
-        <ProductList setShowModal={setShowModal} showModal={showModal} />
+        <ProductList id={id} setShowModal={setShowModal} showModal={showModal} />
       </Container>
     </Layout>
   );
