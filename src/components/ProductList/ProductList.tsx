@@ -41,8 +41,7 @@ const ProductList = (props: Props) => {
   const createNewProduct = async (product: IProduct) => {
     try {
       const res = await createProduct(dispatch, product);
-      console.log("[res]", res);
-      setProducts([{ ...res, quantity: 0 }, ...products]);
+      setProducts([{ ...res.data, quantity: 0 }, ...products]);
     } catch (error) {
       Alert.alert("Error!");
     }

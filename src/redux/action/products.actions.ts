@@ -34,7 +34,7 @@ export enum CreateProductKeys {
 export const createProduct = (
   dispatch: any,
   product: IProduct
-): Promise<IProduct> =>
+): Promise<{ data: IProduct }> =>
   dispatchApi(dispatch, {
     types: Object.keys(CreateProductKeys),
     method: "POST",
