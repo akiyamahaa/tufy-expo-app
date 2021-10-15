@@ -3,7 +3,10 @@ import { Text, Box, Image, Button, Center } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { getAllInventory } from 'redux/action/inventory.actions';
+import {
+  getAllInventory,
+  searchInventory,
+} from 'redux/action/inventory.actions';
 import CardInventory from './components/CardInventory';
 interface Props {}
 
@@ -27,6 +30,17 @@ const InventoryScreen = (props: Props) => {
     loadInventory();
   }, []);
 
+  const searchInven = async (textSearch: string) => {
+    const { inventories } = await searchInventory(dispatch, textSearch);
+    setInventoryList(
+      inventories.map((inven: any) => ({
+        name: inven.product.name,
+        category: inven.product.category.name,
+        quantity: inven.quantity,
+      }))
+    );
+  };
+
   // TODO: Search Action for Inventory
 
   return (
@@ -46,7 +60,7 @@ const InventoryScreen = (props: Props) => {
           </Text>
         </Box>
         <Box style={styles.contentContainer}>
-          <SearchField widthFull onPress={() => {}} />
+          <SearchField widthFull onPress={searchInven} />
           {inventoryList.map((item: any) => (
             <Box key={item.name}>
               <CardInventory data={item} />
