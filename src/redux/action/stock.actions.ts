@@ -37,7 +37,8 @@ export enum GetStockInByFilter {
 export const getStockInFilter = (
   dispatch: any,
   fromDate: any,
-  toDate: any
+  toDate: any,
+  distributorPhone?: any
 ): Promise<any> =>
   dispatchApi(dispatch, {
     types: Object.keys(GetStockInByFilter),
@@ -47,6 +48,7 @@ export const getStockInFilter = (
       params: {
         fromDate,
         toDate,
+        distributorPhone,
       },
     },
   });
@@ -59,7 +61,8 @@ export enum GetStockOutByFilter {
 export const getStockOutFilter = (
   dispatch: any,
   fromDate: any,
-  toDate: any
+  toDate: any,
+  customerPhone?: any
 ): Promise<any> =>
   dispatchApi(dispatch, {
     types: Object.keys(GetStockOutByFilter),
@@ -69,6 +72,7 @@ export const getStockOutFilter = (
       params: {
         fromDate,
         toDate,
+        customerPhone,
       },
     },
   });

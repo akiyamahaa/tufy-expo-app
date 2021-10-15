@@ -64,11 +64,6 @@ const HomeScreen = (props: Props) => {
     loadStock();
   }, []);
 
-  console.log(
-    '🚀 ~ file: HomeScreen.tsx ~ line 32 ~ HomeScreen ~ stats',
-    (stats.revenue, ' VND')
-  );
-
   const infoMockup: any = {
     Today: {
       name: 'Hôm nay',

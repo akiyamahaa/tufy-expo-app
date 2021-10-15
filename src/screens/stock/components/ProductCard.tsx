@@ -2,6 +2,7 @@ import { Box, Text } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import moment from 'moment';
+import { convertCurrencyVN } from 'utils/utils';
 
 interface Props {
   data: any;
@@ -18,8 +19,7 @@ const ProductCard = (props: Props) => {
         0
       )
     : data.productStockOut.reduce(
-        (total: any, item: any) =>
-          total + item.quantity * item.product.price,
+        (total: any, item: any) => total + item.quantity * item.product.price,
         0
       );
 
@@ -47,7 +47,7 @@ const ProductCard = (props: Props) => {
       </Box>
       <Box>
         <Text bold italic fontSize={18} color="#008B2F">
-          {totalPrice}
+          {convertCurrencyVN(totalPrice, ' VND')}
         </Text>
       </Box>
     </Box>
