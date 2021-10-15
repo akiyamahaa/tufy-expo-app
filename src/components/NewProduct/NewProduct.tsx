@@ -19,7 +19,7 @@ const NewProduct = (props: Props) => {
   const [purchasePrice, setPurchasePrice] = useState(0);
   const disabledCondition = !name || !price || !purchasePrice;
   const handleSave = () => {
-    if (disabledCondition) {
+    if (!disabledCondition) {
       createNew({ name, price, purchasePrice, categories: +categories });
       setShowModal(false);
     }

@@ -19,7 +19,7 @@ const ProductCard = (props: Props) => {
     <View style={styles.root}>
       <View>
         <Text style={styles.productName}>{displayName()}</Text>
-        <Text style={styles.productAddress}>{product.quantity + " sp"}</Text>
+        {/* <Text style={styles.productAddress}>{product.quantity + " sp"}</Text> */}
       </View>
       <View>
         <Text style={styles.price}>
