@@ -6,14 +6,12 @@ export enum GetAllStockInKeys {
   GET_ALL_STOCK_IN_FAILURE = 'GET_ALL_STOCK_IN_FAILURE',
 }
 
-export const getAllStockIn = (dispatch: any, queryToday?: any): Promise<any> =>
+export const getAllStockIn = (dispatch: any): Promise<any> =>
   dispatchApi(dispatch, {
     types: Object.keys(GetAllStockInKeys),
     method: 'get',
     endpoint: '/stock_in',
-    body: {
-      data: queryToday,
-    },
+    body: {},
   });
 
 export enum GetAllStockOutKeys {
@@ -22,13 +20,60 @@ export enum GetAllStockOutKeys {
   GET_ALL_STOCK_Out_FAILURE = 'GET_ALL_STOCK_Out_FAILURE',
 }
 
-export const getAllStockOut = (dispatch: any, queryToday?: any): Promise<any> =>
+export const getAllStockOut = (dispatch: any): Promise<any> =>
   dispatchApi(dispatch, {
     types: Object.keys(GetAllStockOutKeys),
     method: 'get',
     endpoint: '/stock_out',
+    body: {},
+  });
+
+export enum GetStockInByFilter {
+  GET_STOCK_IN_FILTER_REQ = 'GET_STOCK_IN_FILTER_REQ',
+  GET_STOCK_IN_FILTER_SUCCESS = 'GET_STOCK_IN_FILTER_SUCCESS',
+  GET_STOCK_IN_FILTER_FAILURE = 'GET_STOCK_IN_FILTER_FAILURE',
+}
+
+export const getStockInFilter = (
+  dispatch: any,
+  fromDate: any,
+  toDate: any,
+  distributorPhone?: any
+): Promise<any> =>
+  dispatchApi(dispatch, {
+    types: Object.keys(GetStockInByFilter),
+    method: 'get',
+    endpoint: '/stock_in/filter',
     body: {
-      data: queryToday,
+      params: {
+        fromDate,
+        toDate,
+        distributorPhone,
+      },
+    },
+  });
+export enum GetStockOutByFilter {
+  GET_STOCK_OUT_FILTER_REQ = 'GET_STOCK_OUT_FILTER_REQ',
+  GET_STOCK_OUT_FILTER_SUCCESS = 'GET_STOCK_OUT_FILTER_SUCCESS',
+  GET_STOCK_OUT_FILTER_FAILURE = 'GET_STOCK_OUT_FILTER_FAILURE',
+}
+
+export const getStockOutFilter = (
+  dispatch: any,
+  fromDate: any,
+  toDate: any,
+  customerPhone?: any
+): Promise<any> =>
+  dispatchApi(dispatch, {
+    types: Object.keys(GetStockOutByFilter),
+    method: 'get',
+    endpoint: '/stock_out/filter',
+    body: {
+      params: {
+        fromDate,
+        toDate,
+        customerPhone,
+      },
     },
   });
 

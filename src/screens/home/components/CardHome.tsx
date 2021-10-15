@@ -1,6 +1,7 @@
 import { Box, Image, Text } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { convertCurrencyVN } from 'utils/utils';
 
 interface Props {
   data: any;
@@ -39,7 +40,9 @@ const CardHome = (props: Props) => {
                     : '#240046'
                 }
               >
-                {data.info[item].value}
+                {item === 'revenue' || item === 'profit'
+                  ? convertCurrencyVN(data.info[item].value, ' VND')
+                  : data.info[item].value}
               </Text>
             </Box>
           ))}

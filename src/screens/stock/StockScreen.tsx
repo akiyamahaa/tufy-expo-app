@@ -1,9 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import Container from 'components/Container';
-import CreateSearchBar from 'components/CreateSearchBar/CreateSearchBar';
 import Layout from 'components/Layout';
 import React, { useState } from 'react';
-import SearchStockDialog from './components/SearchStockDialog';
 import StockInList from './components/StockInList';
 import StockOutList from './components/StockOutList';
 
@@ -11,24 +9,11 @@ interface Props {}
 
 const StockScreen = (props: Props) => {
   const navigation = useNavigation<any>();
-  const [showModal, setShowModal] = useState(false);
 
   const [active, setActive] = useState(true);
 
-  const [showSearchModal, setShowSearchModal] = useState(false);
-
-  const navigateCreateStock = () => {
-    active
-      ? navigation.navigate('CreateStockIn')
-      : navigation.navigate('CreateStockOut');
-  };
-
   return (
     <Layout back={true}>
-      <SearchStockDialog
-        showModal={showSearchModal}
-        setShowModal={setShowSearchModal}
-      />
       <Container
         button={true}
         textFirstButton="Nhập hàng"
@@ -36,11 +21,6 @@ const StockScreen = (props: Props) => {
         active={active}
         onPress={setActive}
       >
-        <CreateSearchBar
-          onCreatePress={navigateCreateStock}
-          search={() => setShowSearchModal(true)}
-          refresh={() => {}}
-        />
         {active ? (
           <StockInList active={active} />
         ) : (

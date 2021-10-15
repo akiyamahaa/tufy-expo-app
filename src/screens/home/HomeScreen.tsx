@@ -9,8 +9,14 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import { getAllStockIn, getAllStockOut } from 'redux/action/stock.actions';
+import {
+  getStockInFilter,
+  getStockOutFilter,
+} from 'redux/action/stock.actions';
 import CardHome from './components/CardHome';
+import moment from 'moment';
+import { getStats } from 'redux/action/stats.actions';
+import { convertCurrencyVN } from 'utils/utils';
 
 interface Props {}
 
@@ -18,24 +24,45 @@ const HomeScreen = (props: Props) => {
   const navigation = useNavigation<any>();
   const dispatch = useDispatch();
 
+  const START_DAY = moment(new Date()).startOf('day').toDate();
+  const END_DAY = moment(new Date()).endOf('day').toDate();
+  const MONTH = moment(new Date()).format('M');
+  const YEAR = moment(new Date()).format('Y');
+
   const [stockInQuantity, setStockInQuantity] = useState(0);
   const [stockOutQuantity, setStockOutQuantity] = useState(0);
 
+  const [stats, setStats] = useState<any>({
+    cost: 0,
+    profit: 0,
+    revenue: 0,
+  });
+
   useEffect(() => {
     const loadStock = async () => {
-      const resultStockIn = await getAllStockIn(dispatch, { queryToday: true });
-      const resultStockOut = await getAllStockOut(dispatch, {
-        queryToday: true,
-      });
+      const resultStockIn = await getStockInFilter(
+        dispatch,
+        START_DAY,
+        END_DAY
+      );
+      const resultStockOut = await getStockOutFilter(
+        dispatch,
+        START_DAY,
+        END_DAY
+      );
 
-      setStockInQuantity(resultStockIn.count);
-      setStockOutQuantity(resultStockOut.count);
+      const statsResult = await getStats(
+        dispatch,
+        parseInt(MONTH),
+        parseInt(YEAR)
+      );
+      setStats(statsResult);
+      setStockInQuantity(resultStockIn.length);
+      setStockOutQuantity(resultStockOut.length);
     };
 
     loadStock();
   }, []);
-
-  // TODO: Compute for Outcome
 
   const infoMockup: any = {
     Today: {
@@ -54,22 +81,23 @@ const HomeScreen = (props: Props) => {
       },
     },
     OutCome: {
-      name: 'Doanh thu tháng 10',
+      name: `Doanh thu tháng ${MONTH}`,
       info: {
         revenue: {
           name: 'Doanh thu',
-          value: 10000000,
+          value: stats.revenue,
         },
         profit: {
           name: 'Lợi nhuận',
-          value: 1000000,
+          value: stats.profit,
         },
       },
     },
   };
+
   return (
     <SafeAreaView>
-      <ScrollView style={{ minHeight: Dimensions.get('screen').height }}>
+      <ScrollView>
         <Image
           style={styles.bgContainer}
           source={require('assets/images/background-2.png')}

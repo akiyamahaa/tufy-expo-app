@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
-import {
-  Box,
-  CheckIcon,
-  FormControl,
-  Input,
-  Modal,
-  Select,
-  Text,
-} from 'native-base';
+import React, { useState, useEffect } from 'react';
+import { Box, FormControl, Input, Modal, Text } from 'native-base';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon } from 'native-base';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { getStockInFilter } from 'redux/action/stock.actions';
+import { getAllDistributors } from 'redux/action/distributors.actions';
+import { Picker } from '@react-native-picker/picker';
 
 interface Props {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setStockList: React.Dispatch<any>;
 }
 
 const SearchStockDialog = (props: Props) => {
-  const { showModal, setShowModal } = props;
-  const [service, setService] = useState('');
+  //PROPS
+  const { showModal, setShowModal, setStockList } = props;
+  //Dispatch
+  const dispatch = useDispatch();
+  //STATE
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
   const [showFromDate, setShowFromDate] = useState(false);
   const [showToDate, setShowToDate] = useState(false);
+
+  const [distributorPhone, setDistributorPhone] = useState<any>('');
+  const [distributorList, setDistributorList] = useState<any>([]);
 
   const onChangeFromDate = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || fromDate;
@@ -38,6 +41,31 @@ const SearchStockDialog = (props: Props) => {
     setShowToDate(Platform.OS === 'ios');
     setToDate(currentDate);
   };
+
+  const searchByStockIn = async () => {
+    const resultFilter = await getStockInFilter(
+      dispatch,
+      moment(fromDate).startOf('day').toDate(),
+      moment(toDate).endOf('day').toDate(),
+      distributorPhone
+    );
+    setStockList(resultFilter);
+    setShowModal(false);
+  };
+
+  const cancelModel = () => {
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    const loadList = async () => {
+      const listDistributor = await getAllDistributors(dispatch);
+      // convert Array to Dictionary
+      setDistributorList(listDistributor.distributors);
+      setDistributorPhone(listDistributor.distributors[0].phone);
+    };
+    loadList();
+  }, []);
 
   return (
     <Box>
@@ -68,24 +96,35 @@ const SearchStockDialog = (props: Props) => {
               <FormControl.Label style={styles.labelStyle}>
                 Phân phối
               </FormControl.Label>
-              <Select
-                selectedValue={service}
-                style={styles.inputStyle}
-                minWidth="200"
-                placeholder="Choose Service"
-                _selectedItem={{
-                  bg: 'teal.600',
-                  endIcon: <CheckIcon size="5" />,
+              <Box
+                style={{
+                  width: '70%',
+                  borderWidth: 0.2,
+                  borderColor: '#000',
+                  borderRadius: 4,
+                  backgroundColor: '#fff',
+                  height: 50,
+                  justifyContent: 'center',
                 }}
-                mt={1}
-                onValueChange={(itemValue) => setService(itemValue)}
               >
-                <Select.Item label="UX Research" value="ux" />
-                <Select.Item label="Web Development" value="web" />
-                <Select.Item label="Cross Platform Development" value="cross" />
-                <Select.Item label="UI Designing" value="ui" />
-                <Select.Item label="Backend Development" value="backend" />
-              </Select>
+                <Picker
+                  selectedValue={distributorPhone}
+                  onValueChange={(itemValue, itemIndex) => {
+                    setDistributorPhone(itemValue);
+                  }}
+                >
+                  {Boolean(distributorList.length) &&
+                    distributorList.map((each: any, index: number) => {
+                      return (
+                        <Picker.Item
+                          label={each.name}
+                          value={each.phone}
+                          key={`${each.phone}-${index}`}
+                        />
+                      );
+                    })}
+                </Picker>
+              </Box>
             </FormControl>
             <FormControl style={styles.formContainer} mt="3">
               <FormControl.Label style={styles.labelStyle}>
@@ -124,7 +163,7 @@ const SearchStockDialog = (props: Props) => {
               />
             </FormControl>
             <Box style={styles.btnContainer}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={searchByStockIn}>
                 <Box
                   style={[styles.btnSearch, { backgroundColor: '#F7EFFF' }]}
                   borderRadius={8}
@@ -132,12 +171,12 @@ const SearchStockDialog = (props: Props) => {
                   <Text>Tìm kiếm</Text>
                 </Box>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={cancelModel}>
                 <Box
                   style={[styles.btnSearch, { backgroundColor: '#FFF' }]}
                   borderRadius={8}
                 >
-                  <Icon as={AntDesign} name="reload1" size={5} />
+                  <Icon as={MaterialIcons} name="clear" size={5} />
                 </Box>
               </TouchableOpacity>
             </Box>

@@ -13,3 +13,18 @@ export const getAllInventory = (dispatch: any): Promise<any> =>
     endpoint: '/inventories',
     body: {},
   });
+
+export const searchInventory = (
+  dispatch: any,
+  searchField: any,
+): Promise<any> =>
+  dispatchApi(dispatch, {
+    types: Object.keys(GetAllInventoryKeys),
+    method: 'get',
+    endpoint: '/inventories/search',
+    body: {
+      params: {
+        searchField,
+      },
+    },
+  });
