@@ -6,6 +6,7 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
@@ -53,7 +54,8 @@ const Layout = (props: Props) => {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: "#5200FF",
-    minHeight: Dimensions.get('window').height - 100
+    minHeight:
+      Dimensions.get("window").height - 2 * (StatusBar.currentHeight ?? 0) - 10,
   },
   container: {
     zIndex: 0,
