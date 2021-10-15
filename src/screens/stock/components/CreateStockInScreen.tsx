@@ -1,60 +1,81 @@
-import { MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import Layout from 'components/Layout';
-import moment from 'moment';
-import { Box, FormControl, Icon, Input, Modal, Text } from 'native-base';
-import React, { useState } from 'react';
-import {
-  Dimensions,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { Box, FormControl, Icon, Input, Text } from 'native-base';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useNavigation } from '@react-navigation/core';
+import { useDispatch } from 'react-redux';
+import { getAllDistributors } from 'redux/action/distributors.actions';
+import { getAllProduct } from 'redux/action/products.actions';
+import { createStockIn } from 'redux/action/stock.actions';
 
 interface Props {}
 
-interface IProduct {
-  name: string;
-  quantity: number;
-}
-
-const CreateStockScreen = (props: Props) => {
-  const { width } = Dimensions.get('window');
+const CreateStockInScreen = (props: Props) => {
+  // Dispatch
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   //STATE
-  const [distributor, setDistributor] = useState('');
-  const [product, setProduct] = useState('banhgau');
-  const [productQuantity, setProductQuantity] = useState(1);
-  const [date, setDate] = useState(new Date());
-  const [showDate, setShowDate] = useState(false);
-  const [listProduct, setListProduct] = useState<IProduct[]>([]);
+  const [distributorPhone, setDistributorPhone] = useState<any>('');
+  const [distributorList, setDistributorList] = useState<any>([]);
 
-  const onChangeDate = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || date;
-    setShowDate(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
+  const [productId, setProductId] = useState('');
+  const [listProduct, setListProduct] = useState<any[]>([]);
+  const [objectListProduct, setObjectListProduct] = useState<any>({});
+  const [productQuantity, setProductQuantity] = useState(1);
+  const [listProductCart, setListProductCart] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadList = async () => {
+      const listDistributor = await getAllDistributors(dispatch);
+
+      const listProducts: { count: number; products: any[] } =
+        await getAllProduct(dispatch);
+      // convert Array to Dictionary
+      const obj = listProducts.products.reduce(
+        (obj, item) => ({
+          ...obj,
+          [item.id]: item,
+        }),
+        {}
+      );
+      setObjectListProduct(obj);
+      setDistributorList(listDistributor.distributors);
+      setListProduct(listProducts.products);
+    };
+    loadList();
+  }, []);
 
   const onAddProduct = () => {
-    const newProduct: IProduct = {
-      name: product,
+    const newProduct: any = {
+      product: {
+        id: productId,
+      },
       quantity: productQuantity,
     };
-    setListProduct([...listProduct, newProduct]);
+    setListProductCart([...listProductCart, newProduct]);
   };
+
+  const onCreateStockIn = async () => {
+    const data = {
+      distributor: {
+        phone: distributorPhone,
+      },
+      products: listProductCart,
+      discount: 0,
+    };
+    await createStockIn(dispatch, data);
+    navigation.goBack();
+  };
+  const totalStockPrice = listProductCart.reduce(
+    (total, item) =>
+      total + item.quantity * objectListProduct[item.product.id].purchasePrice,
+    0
+  );
 
   return (
     <Layout>
-      {showDate && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode="date"
-          is24Hour={true}
-          display="default"
-          onChange={onChangeDate}
-        />
-      )}
       <Box style={styles.children}>
         <Box style={styles.childrenContainer}>
           <Box>
@@ -66,37 +87,23 @@ const CreateStockScreen = (props: Props) => {
               </FormControl.Label>
               <Box style={styles.inputStyle}>
                 <Picker
-                  selectedValue={distributor}
+                  selectedValue={distributorPhone}
                   style={styles.pickerStyle}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setDistributor(itemValue)
-                  }
+                  onValueChange={(itemValue, itemIndex) => {
+                    setDistributorPhone(itemValue);
+                  }}
                 >
-                  <Picker.Item label="Orion" value="orion" />
-                  <Picker.Item label="Sun House" value="sunhouse" />
+                  {Boolean(distributorList.length) &&
+                    distributorList.map((each: any, index: number) => {
+                      return (
+                        <Picker.Item
+                          label={each.name}
+                          value={each.phone}
+                          key={`${each.phone}-${index}`}
+                        />
+                      );
+                    })}
                 </Picker>
-              </Box>
-            </FormControl>
-            <FormControl style={styles.formContainer} mt="3">
-              <FormControl.Label style={styles.labelStyle}>
-                <Text bold fontSize={18}>
-                  Ngày
-                </Text>
-              </FormControl.Label>
-              <Box style={styles.inputStyle}>
-                <Input
-                  InputRightElement={
-                    <Icon
-                      onPress={() => setShowDate(true)}
-                      as={<MaterialIcons name="date-range" />}
-                      size={5}
-                      mr="2"
-                      color="muted.400"
-                    />
-                  }
-                  borderWidth={0}
-                  value={moment(date).format('DD/MM/YYYY')}
-                />
               </Box>
             </FormControl>
           </Box>
@@ -130,14 +137,20 @@ const CreateStockScreen = (props: Props) => {
                   </FormControl.Label>
                   <Box style={styles.inputStyle}>
                     <Picker
-                      selectedValue={product}
+                      selectedValue={productId}
                       style={styles.pickerStyle}
                       onValueChange={(itemValue, itemIndex) =>
-                        setProduct(itemValue)
+                        setProductId(itemValue)
                       }
                     >
-                      <Picker.Item label="Bánh Gấu" value="banhgau" />
-                      <Picker.Item label="Bánh Gạo" value="banhgao" />
+                      {Boolean(listProduct.length) &&
+                        listProduct.map((item: any, index: any) => (
+                          <Picker.Item
+                            label={item.name}
+                            value={item.id}
+                            key={`${item.name}-${index}`}
+                          />
+                        ))}
                     </Picker>
                   </Box>
                 </FormControl>
@@ -157,27 +170,33 @@ const CreateStockScreen = (props: Props) => {
             </Box>
           </Box>
           <Box mt="3">
-            {listProduct.length > 0 && (
+            {listProductCart.length > 0 && (
               <>
                 <Text bold fontSize={18} mb="3">
                   Danh sách sản phẩm
                 </Text>
                 <Box style={styles.productListContainer}>
-                  {listProduct.map((eachProduct, index) => (
+                  {listProductCart.map((eachProduct: any, index) => (
                     <Box
                       style={styles.product}
                       mb="4"
-                      key={`${eachProduct}-${index}`}
+                      key={`${eachProduct.product.id}-${index}`}
                     >
                       <Box>
                         <Text bold fontSize={18} m="1">
-                          {eachProduct.name}
+                          {objectListProduct[eachProduct.product.id].name}
                         </Text>
                         <Text fontSize={18} m="1">
                           Số lượng: <Text>{eachProduct.quantity}</Text>
                         </Text>
                         <Text fontSize={18} m="1">
-                          Đơn giá: <Text>{eachProduct.quantity}</Text>
+                          Đơn giá:{' '}
+                          <Text bold>
+                            {
+                              objectListProduct[eachProduct.product.id]
+                                .purchasePrice
+                            }
+                          </Text>
                         </Text>
                       </Box>
                     </Box>
@@ -185,7 +204,7 @@ const CreateStockScreen = (props: Props) => {
                   <Text textAlign="right" bold fontSize={20}>
                     Tổng tiền:{' '}
                     <Text bold color="#008B2F" fontSize={20}>
-                      100000
+                      {totalStockPrice}
                     </Text>
                   </Text>
                   <Box
@@ -194,12 +213,12 @@ const CreateStockScreen = (props: Props) => {
                       { paddingHorizontal: 10, paddingVertical: 20 },
                     ]}
                   >
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => setListProductCart([])}>
                       <Box style={styles.btnStyle}>
                         <Text>Hủy</Text>
                       </Box>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={onCreateStockIn}>
                       <Box
                         style={styles.btnStyle}
                         borderRadius={10}
@@ -272,4 +291,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateStockScreen;
+export default CreateStockInScreen;

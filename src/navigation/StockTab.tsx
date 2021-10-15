@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import CreateStockScreen from 'screens/stock/components/CreateStockScreen';
+import CreateStockInScreen from 'screens/stock/components/CreateStockInScreen';
+import CreateStockOutScreen from 'screens/stock/components/CreateStockOutScreen';
 import StockScreen from 'screens/stock/StockScreen';
 
 interface Props {}
@@ -16,9 +17,14 @@ const StockTab = (props: Props) => {
         component={StockScreen}
       />
       <Stack.Screen
-        name="CreateStock"
+        name="CreateStockIn"
         options={{ headerShown: false }}
-        component={CreateStockScreen}
+        component={CreateStockInScreen}
+      />
+      <Stack.Screen
+        name="CreateStockOut"
+        options={{ headerShown: false }}
+        component={CreateStockOutScreen}
       />
     </Stack.Navigator>
   );

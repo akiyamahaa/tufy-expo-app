@@ -14,10 +14,13 @@ const StockScreen = (props: Props) => {
   const [showModal, setShowModal] = useState(false);
 
   const [active, setActive] = useState(true);
+
   const [showSearchModal, setShowSearchModal] = useState(false);
 
   const navigateCreateStock = () => {
-    navigation.navigate('CreateStock');
+    active
+      ? navigation.navigate('CreateStockIn')
+      : navigation.navigate('CreateStockOut');
   };
 
   return (
@@ -36,8 +39,13 @@ const StockScreen = (props: Props) => {
         <CreateSearchBar
           onCreatePress={navigateCreateStock}
           search={() => setShowSearchModal(true)}
+          refresh={() => {}}
         />
-        {active ? <StockInList /> : <StockOutList />}
+        {active ? (
+          <StockInList active={active} />
+        ) : (
+          <StockOutList active={active} />
+        )}
       </Container>
     </Layout>
   );

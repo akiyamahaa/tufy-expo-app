@@ -1,40 +1,34 @@
 import SearchField from 'components/CreateSearchBar/SearchField';
 import { Text, Box, Image, Button, Center } from 'native-base';
-import React from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { getAllInventory } from 'redux/action/inventory.actions';
 import CardInventory from './components/CardInventory';
 interface Props {}
 
-const infoMockup = [
-  {
-    name: 'Bánh gạo',
-    category: 'Bánh kẹo',
-    quantity: 100,
-  },
-  {
-    name: 'Bánh chuối',
-    category: 'Bánh kẹo',
-    quantity: 100,
-  },
-  {
-    name: 'Bánh tôm',
-    category: 'Bánh kẹo',
-    quantity: 100,
-  },
-  {
-    name: 'Bánh khoai',
-    category: 'Bánh kẹo',
-    quantity: 100,
-  },
-  
-];
-
 const InventoryScreen = (props: Props) => {
+  const dispatch = useDispatch();
+
+  const [inventoryList, setInventoryList] = useState<any>([]);
+
+  useEffect(() => {
+    const loadInventory = async () => {
+      const { inventories } = await getAllInventory(dispatch);
+
+      setInventoryList(
+        inventories.map((inven: any) => ({
+          name: inven.product.name,
+          category: inven.product.category.name,
+          quantity: inven.quantity,
+        }))
+      );
+    };
+    loadInventory();
+  }, []);
+
+  // TODO: Search Action for Inventory
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -53,7 +47,7 @@ const InventoryScreen = (props: Props) => {
         </Box>
         <Box style={styles.contentContainer}>
           <SearchField widthFull onPress={() => {}} />
-          {infoMockup.map((item) => (
+          {inventoryList.map((item: any) => (
             <Box key={item.name}>
               <CardInventory data={item} />
             </Box>
@@ -78,7 +72,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     paddingHorizontal: 8,
     paddingBottom: 20,
-    backgroundColor:'#5200FF'
+    backgroundColor: '#5200FF',
   },
   btnStyle: {
     backgroundColor: '#F2EFFF',

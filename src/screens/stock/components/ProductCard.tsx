@@ -1,13 +1,28 @@
 import { Box, Text } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import moment from 'moment';
 
 interface Props {
   data: any;
+  active: boolean;
 }
 
 const ProductCard = (props: Props) => {
-  const { data } = props;
+  const { data, active } = props;
+
+  const totalPrice = active
+    ? data.productStockIn.reduce(
+        (total: any, item: any) =>
+          total + item.quantity * item.product.purchasePrice,
+        0
+      )
+    : data.productStockOut.reduce(
+        (total: any, item: any) =>
+          total + item.quantity * item.product.price,
+        0
+      );
+
   return (
     <Box
       style={styles.root}
@@ -20,19 +35,19 @@ const ProductCard = (props: Props) => {
         <Text>
           Ngày:{' '}
           <Text fontSize={18} bold color="#240046">
-            {data.date}
+            {moment(data.createdAt).format('DD/MM/YYYY')}
           </Text>
         </Text>
         <Text>
-          Phân phối:{' '}
+          {active ? 'Phân phối: ' : 'Khách hàng: '}
           <Text fontSize={18} bold color="#240046">
-            {data.distributor}
+            {active ? data.distributor.name : data.customer.name}
           </Text>
         </Text>
       </Box>
       <Box>
         <Text bold italic fontSize={18} color="#008B2F">
-          {data.price}
+          {totalPrice}
         </Text>
       </Box>
     </Box>

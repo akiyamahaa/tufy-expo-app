@@ -1,5 +1,7 @@
 import { Box } from 'native-base';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getAllStockIn } from 'redux/action/stock.actions';
 import ProductCard from './ProductCard';
 
 interface Props {}
@@ -32,14 +34,31 @@ const dataMockup = [
   },
 ];
 
-const StockInList = (props: Props) => {
+const StockInList = (props: any) => {
+  const {active} = props
+  const dispatch = useDispatch();
+
+  const [stockList, setStockList] = useState<any>([]);
+
+
+  useEffect(() => {
+    const loadStock = async () => {
+      const resultStockIn = await getAllStockIn(dispatch);
+
+      setStockList(resultStockIn.stockIn);
+    };
+
+    loadStock();
+  }, []);
+
   return (
     <Box>
-      {dataMockup.map((item, index) => (
-        <Box key={`${item}-${index}`}>
-          <ProductCard data={item} />
-        </Box>
-      ))}
+      {Boolean(stockList.length) &&
+        stockList.map((item: any, index: any) => (
+          <Box key={`${item}-${index}`}>
+            <ProductCard data={item} active={active} />
+          </Box>
+        ))}
     </Box>
   );
 };

@@ -1,49 +1,71 @@
 import { useNavigation } from '@react-navigation/core';
 import { Text, Box, Image } from 'native-base';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import { getAllStockIn, getAllStockOut } from 'redux/action/stock.actions';
 import CardHome from './components/CardHome';
 
 interface Props {}
 
-const infoMockup: any = {
-  Today: {
-    name: 'Hôm nay',
-    info: {
-      total_in: {
-        id: 1,
-        name: 'Tổng đơn nhập',
-        value: 20,
-      },
-      total_out: {
-        id: 2,
-        name: 'Tổng đơn bán',
-        value: 20,
-      },
-    },
-  },
-  OutCome: {
-    name: 'Doanh thu tháng 10',
-    info: {
-      revenue: {
-        name: 'Doanh thu',
-        value: 10000000,
-      },
-      profit: {
-        name: 'Lợi nhuận',
-        value: 1000000,
-      },
-    },
-  },
-};
-
 const HomeScreen = (props: Props) => {
   const navigation = useNavigation<any>();
+  const dispatch = useDispatch();
+
+  const [stockInQuantity, setStockInQuantity] = useState(0);
+  const [stockOutQuantity, setStockOutQuantity] = useState(0);
+
+  useEffect(() => {
+    const loadStock = async () => {
+      const resultStockIn = await getAllStockIn(dispatch, { queryToday: true });
+      const resultStockOut = await getAllStockOut(dispatch, {
+        queryToday: true,
+      });
+
+      setStockInQuantity(resultStockIn.count);
+      setStockOutQuantity(resultStockOut.count);
+    };
+
+    loadStock();
+  }, []);
+
+  // TODO: Compute for Outcome
+
+  const infoMockup: any = {
+    Today: {
+      name: 'Hôm nay',
+      info: {
+        total_in: {
+          id: 1,
+          name: 'Tổng đơn nhập',
+          value: stockInQuantity,
+        },
+        total_out: {
+          id: 2,
+          name: 'Tổng đơn bán',
+          value: stockOutQuantity,
+        },
+      },
+    },
+    OutCome: {
+      name: 'Doanh thu tháng 10',
+      info: {
+        revenue: {
+          name: 'Doanh thu',
+          value: 10000000,
+        },
+        profit: {
+          name: 'Lợi nhuận',
+          value: 1000000,
+        },
+      },
+    },
+  };
   return (
     <SafeAreaView>
       <ScrollView>
