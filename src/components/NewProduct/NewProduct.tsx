@@ -9,9 +9,21 @@ interface Props {
   setShowModal: (modal: boolean) => void;
   showModal: boolean;
   product?: IProduct;
+  createNew: (value: IProduct) => void;
+  categories: string;
 }
 const NewProduct = (props: Props) => {
-  const { setShowModal, showModal, product } = props;
+  const { setShowModal, showModal, product, createNew, categories } = props;
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [purchasePrice, setPurchasePrice] = useState(0);
+  const disabledCondition = !name || !price || !purchasePrice;
+  const handleSave = () => {
+    if (disabledCondition) {
+      createNew({ name, price, purchasePrice, categories: +categories });
+      setShowModal(false);
+    }
+  };
   return (
     <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
       <Modal.Content maxWidth="400px">
@@ -31,9 +43,10 @@ const NewProduct = (props: Props) => {
                 />
               }
               placeholder="Tên sản phẩm"
+              onChangeText={(text) => setName(text)}
             />
           </FormControl>
-          <FormControl mt="3">
+          {/* <FormControl mt="3">
             <Input
               InputLeftElement={
                 <Icon
@@ -45,9 +58,10 @@ const NewProduct = (props: Props) => {
               }
               placeholder="Phân phối"
             />
-          </FormControl>
+          </FormControl> */}
           <FormControl mt="3">
             <Input
+              keyboardType="number-pad"
               InputLeftElement={
                 <Icon
                   as={<Ionicons name="pricetag" size={24} color="black" />}
@@ -57,10 +71,12 @@ const NewProduct = (props: Props) => {
                 />
               }
               placeholder="Giá nhập"
+              onChangeText={(text) => setPrice(+text)}
             />
           </FormControl>
           <FormControl mt="3">
             <Input
+              keyboardType="number-pad"
               InputLeftElement={
                 <Icon
                   as={<Entypo name="price-tag" size={24} color="black" />}
@@ -70,16 +86,22 @@ const NewProduct = (props: Props) => {
                 />
               }
               placeholder="Giá bán"
+              onChangeText={(text) => setPurchasePrice(+text)}
             />
           </FormControl>
         </Modal.Body>
         <Modal.Footer>
           <TouchableOpacity
+            disabled={disabledCondition}
             activeOpacity={0.6}
-            onPress={() => setShowModal(false)}
+            onPress={handleSave}
             style={styles.button}
           >
-            <Text style={styles.text}>Lưu</Text>
+            <Text
+              style={[styles.text, disabledCondition && { color: "#BABABA" }]}
+            >
+              Lưu
+            </Text>
           </TouchableOpacity>
         </Modal.Footer>
       </Modal.Content>

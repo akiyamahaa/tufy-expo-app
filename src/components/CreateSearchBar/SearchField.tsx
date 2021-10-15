@@ -34,6 +34,7 @@ const SearchField = (props: Props) => {
 };
 const styles = StyleSheet.create({
   root: {
+    height: 40,
     width: Dimensions.get("screen").width * 0.4,
     borderRadius: 10,
     backgroundColor: '#fff',
@@ -52,11 +53,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     backgroundColor: "#fff",
-    
+    marginTop: -2
   },
   input: {
-    
-  },
+    height: 44,
+    width: Dimensions.get("screen").width * 0.3,
+  }
 });
 
 export default SearchField;

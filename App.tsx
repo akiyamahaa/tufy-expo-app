@@ -62,6 +62,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={[styles.root, GlobalStyles.AndroidSafeArea]}>
+      {/* <StatusBar hidden={true}/> */}
       <Provider store={store}>
         <NativeBaseProvider theme={theme}>
           <NavigationContainer theme={MyTheme}>

@@ -42,3 +42,19 @@ export const createCategory = (
       data: category,
     },
   });
+
+export enum SearchCategoriessKeys {
+  SEARCH_CATEGORIES_REQ = "SEARCH_CATEGORIES_REQ",
+  SEARCH_CATEGORIES_SUCCESS = "SEARCH_CATEGORIES_SUCCESS",
+  SEARCH_CATEGORIES_FAILURE = "SEARCH_CATEGORIES_FAILURE",
+}
+export const searchCategories = (
+  dispatch: any,
+  name: string
+): Promise<{ categories: ICategoryWithCount }> =>
+  dispatchApi(dispatch, {
+    types: Object.keys(SearchCategoriessKeys),
+    method: "get",
+    endpoint: "/categories/search?name=" + name,
+    body: {},
+  });

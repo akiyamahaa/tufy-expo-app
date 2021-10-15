@@ -9,10 +9,12 @@ import {
 import {
   createCategory,
   getAllCategories,
+  searchCategories,
 } from "redux/action/categories.actions";
 import { useDispatch } from "react-redux";
 import NewCategory from "components/NewCategory/NewCategory";
 import { Alert } from "react-native";
+import CreateSearchBar from "components/CreateSearchBar/CreateSearchBar";
 
 interface Props {
   setShowModal: (modal: boolean) => void;
@@ -43,11 +45,24 @@ const CategoriesList = (props: Props) => {
       Alert.alert("Error!");
     }
   };
+  const search = async (text: string) => {
+    try {
+      const res = await searchCategories(dispatch, text);
+      setCategories([res.categories]);
+    } catch (error) {
+      Alert.alert('Error!');
+    }
+  };
   useEffect(() => {
     loadData();
   }, []);
   return (
     <>
+      <CreateSearchBar
+        search={search}
+        setShowModal={setShowModal}
+        refresh={() => null}
+      />
       <NewCategory
         setShowModal={setShowModal}
         showModal={showModal}

@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     position: "absolute",
-    top: 20,
+    top: 14,
     left: 20,
     display: "flex",
     flexDirection: "row",
@@ -77,13 +77,13 @@ const styles = StyleSheet.create({
   headingText: {
     color: "#ED0000",
     fontWeight: "700",
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: "Roboto",
   },
   description: {
     color: "#9D9D9D",
     fontWeight: "700",
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: "Roboto",
     fontStyle: "italic",
   },
