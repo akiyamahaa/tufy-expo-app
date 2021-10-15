@@ -6,7 +6,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/core';
 import { useDispatch } from 'react-redux';
-import { getAllProduct } from 'redux/action/products.actions';
+import { getListProduct } from 'redux/action/products.actions';
 import { getAllCustomers } from 'redux/action/customers.action';
 import { createStockOut } from 'redux/action/stock.actions';
 
@@ -31,7 +31,7 @@ const CreateStockOutScreen = (props: Props) => {
       const listCustomer = await getAllCustomers(dispatch);
 
       const listProducts: { count: number; products: any[] } =
-        await getAllProduct(dispatch);
+        await getListProduct(dispatch);
       // convert Array to Dictionary
       const obj = listProducts.products.reduce(
         (obj, item) => ({
@@ -192,10 +192,7 @@ const CreateStockOutScreen = (props: Props) => {
                         <Text fontSize={18} m="1">
                           Giá bán:{' '}
                           <Text bold>
-                            {
-                              objectListProduct[eachProduct.product.id]
-                                .price
-                            }
+                            {objectListProduct[eachProduct.product.id].price}
                           </Text>
                         </Text>
                       </Box>

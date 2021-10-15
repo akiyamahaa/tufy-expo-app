@@ -7,7 +7,7 @@ import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/core';
 import { useDispatch } from 'react-redux';
 import { getAllDistributors } from 'redux/action/distributors.actions';
-import { getAllProduct } from 'redux/action/products.actions';
+import { getListProduct } from 'redux/action/products.actions';
 import { createStockIn } from 'redux/action/stock.actions';
 
 interface Props {}
@@ -22,6 +22,7 @@ const CreateStockInScreen = (props: Props) => {
 
   const [productId, setProductId] = useState('');
   const [listProduct, setListProduct] = useState<any[]>([]);
+
   const [objectListProduct, setObjectListProduct] = useState<any>({});
   const [productQuantity, setProductQuantity] = useState(1);
   const [listProductCart, setListProductCart] = useState<any[]>([]);
@@ -31,7 +32,7 @@ const CreateStockInScreen = (props: Props) => {
       const listDistributor = await getAllDistributors(dispatch);
 
       const listProducts: { count: number; products: any[] } =
-        await getAllProduct(dispatch);
+        await getListProduct(dispatch);
       // convert Array to Dictionary
       const obj = listProducts.products.reduce(
         (obj, item) => ({

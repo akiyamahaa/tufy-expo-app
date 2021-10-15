@@ -96,8 +96,12 @@ const HomeScreen = (props: Props) => {
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+      >
         <Image
           style={styles.bgContainer}
           source={require('assets/images/background-2.png')}
@@ -112,11 +116,13 @@ const HomeScreen = (props: Props) => {
           </Text>
         </Box>
         <Box style={styles.contentContainer}>
-          {Object.keys(infoMockup).map((option) => (
-            <Box key={option}>
-              <CardHome data={infoMockup[option]} />
-            </Box>
-          ))}
+          <Box>
+            {Object.keys(infoMockup).map((option) => (
+              <Box key={option}>
+                <CardHome data={infoMockup[option]} />
+              </Box>
+            ))}
+          </Box>
           <TouchableOpacity onPress={() => navigation.navigate('Inventory')}>
             <Box style={styles.btnStyle}>
               <Text color="#5200FF" bold fontSize={24}>
@@ -141,9 +147,12 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   contentContainer: {
-    marginTop: 50,
+    marginTop: 70,
     paddingHorizontal: 8,
     paddingBottom: 20,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    flex: 1,
   },
   btnStyle: {
     backgroundColor: '#F2EFFF',

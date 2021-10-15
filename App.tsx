@@ -25,7 +25,7 @@ const theme = extendTheme({
   components: {
     Text: {
       baseStyle: {
-        fontFamily: 'roboto',
+        fontFamily: 'Roboto',
       },
     },
     /*
@@ -44,9 +44,9 @@ export default function App() {
 
   const fetchFonts = () => {
     return Font.loadAsync({
-      'roboto-bold': require('assets/fonts/Roboto-Bold.ttf'),
-      'roboto-italic': require('assets/fonts/Roboto-Italic.ttf'),
-      roboto: require('assets/fonts/Roboto-Regular.ttf'),
+      'Roboto-bold': require('assets/fonts/Roboto-Bold.ttf'),
+      'Roboto-italic': require('assets/fonts/Roboto-Italic.ttf'),
+      Roboto: require('assets/fonts/Roboto-Regular.ttf'),
     });
   };
 
