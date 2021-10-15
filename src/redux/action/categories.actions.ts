@@ -51,7 +51,7 @@ export enum SearchCategoriessKeys {
 export const searchCategories = (
   dispatch: any,
   name: string
-): Promise<{ categories: ICategoryWithCount }> =>
+): Promise<{ category: ICategoryWithCount[] }> =>
   dispatchApi(dispatch, {
     types: Object.keys(SearchCategoriessKeys),
     method: "get",

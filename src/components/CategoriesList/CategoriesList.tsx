@@ -48,9 +48,9 @@ const CategoriesList = (props: Props) => {
   const search = async (text: string) => {
     try {
       const res = await searchCategories(dispatch, text);
-      setCategories([res.categories]);
+      setCategories(res.category);
     } catch (error) {
-      Alert.alert('Error!');
+      Alert.alert("Error!");
     }
   };
   useEffect(() => {

@@ -20,7 +20,7 @@ const NewProduct = (props: Props) => {
   const disabledCondition = !name || !price || !purchasePrice;
   const handleSave = () => {
     if (!disabledCondition) {
-      createNew({ name, price, purchasePrice, categories: +categories });
+      createNew({ name, price, purchasePrice, categoryId: +categories });
       setShowModal(false);
     }
   };
