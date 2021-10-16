@@ -16,7 +16,6 @@ import {
 import CardHome from './components/CardHome';
 import moment from 'moment';
 import { getStats } from 'redux/action/stats.actions';
-import { convertCurrencyVN } from 'utils/utils';
 
 interface Props {}
 
@@ -56,9 +55,19 @@ const HomeScreen = (props: Props) => {
         parseInt(MONTH),
         parseInt(YEAR)
       );
-      setStats(statsResult);
-      setStockInQuantity(resultStockIn.length);
-      setStockOutQuantity(resultStockOut.length);
+
+      if (statsResult) {
+        setStats({
+          cost: statsResult.cost,
+          profit: statsResult.profit,
+          revenue: statsResult.revenue,
+        });
+      }
+
+      if (resultStockIn && resultStockOut) {
+        setStockInQuantity(resultStockIn.length);
+        setStockOutQuantity(resultStockOut.length);
+      }
     };
 
     loadStock();

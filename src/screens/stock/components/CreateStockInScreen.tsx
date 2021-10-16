@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { getAllDistributors } from 'redux/action/distributors.actions';
 import { getListProduct } from 'redux/action/products.actions';
 import { createStockIn } from 'redux/action/stock.actions';
+import { convertCurrencyVN } from 'utils/utils';
 
 interface Props {}
 
@@ -194,8 +195,7 @@ const CreateStockInScreen = (props: Props) => {
                           Đơn giá:{' '}
                           <Text bold>
                             {
-                              objectListProduct[eachProduct.product.id]
-                                .purchasePrice
+                              convertCurrencyVN(parseInt(objectListProduct[eachProduct.product.id].purchasePrice),' VND')
                             }
                           </Text>
                         </Text>
@@ -205,7 +205,7 @@ const CreateStockInScreen = (props: Props) => {
                   <Text textAlign="right" bold fontSize={20}>
                     Tổng tiền:{' '}
                     <Text bold color="#008B2F" fontSize={20}>
-                      {totalStockPrice}
+                      {convertCurrencyVN(totalStockPrice, ' VND')}
                     </Text>
                   </Text>
                   <Box
@@ -215,14 +215,13 @@ const CreateStockInScreen = (props: Props) => {
                     ]}
                   >
                     <TouchableOpacity onPress={() => setListProductCart([])}>
-                      <Box style={styles.btnStyle}>
+                      <Box style={[styles.btnStyle, { marginRight: 2 }]}>
                         <Text>Hủy</Text>
                       </Box>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={onCreateStockIn}>
                       <Box
-                        style={styles.btnStyle}
-                        borderRadius={10}
+                        style={[styles.btnStyle, { marginLeft: 2 }]}
                         backgroundColor="#F7EFFF"
                       >
                         <Text>Lưu</Text>
@@ -283,7 +282,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   btnStyle: {
-    width: 140,
+    width: 120,
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',

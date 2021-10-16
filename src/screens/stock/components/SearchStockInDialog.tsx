@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   btnSearch: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 130,
+    width: 120,
     height: 30,
   },
 });
