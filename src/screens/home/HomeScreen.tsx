@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import { Text, Box, Image } from 'native-base';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
+  RefreshControl,
 } from 'react-native';
 import {
   getStockInFilter,
@@ -19,9 +20,14 @@ import { getStats } from 'redux/action/stats.actions';
 
 interface Props {}
 
+const wait = (timeout: any) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
 const HomeScreen = (props: Props) => {
   const navigation = useNavigation<any>();
   const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState(false);
 
   const START_DAY = moment(new Date()).startOf('day').toDate();
   const END_DAY = moment(new Date()).endOf('day').toDate();
@@ -37,39 +43,43 @@ const HomeScreen = (props: Props) => {
     revenue: 0,
   });
 
+  const loadStock = async () => {
+    const resultStockIn = await getStockInFilter(dispatch, START_DAY, END_DAY);
+    const resultStockOut = await getStockOutFilter(
+      dispatch,
+      START_DAY,
+      END_DAY
+    );
+
+    const statsResult = await getStats(
+      dispatch,
+      parseInt(MONTH),
+      parseInt(YEAR)
+    );
+
+    if (statsResult) {
+      setStats({
+        cost: statsResult.cost,
+        profit: statsResult.profit,
+        revenue: statsResult.revenue,
+      });
+    }
+
+    if (resultStockIn && resultStockOut) {
+      setStockInQuantity(resultStockIn.length);
+      setStockOutQuantity(resultStockOut.length);
+    }
+  };
   useEffect(() => {
-    const loadStock = async () => {
-      const resultStockIn = await getStockInFilter(
-        dispatch,
-        START_DAY,
-        END_DAY
-      );
-      const resultStockOut = await getStockOutFilter(
-        dispatch,
-        START_DAY,
-        END_DAY
-      );
-
-      const statsResult = await getStats(
-        dispatch,
-        parseInt(MONTH),
-        parseInt(YEAR)
-      );
-
-      if (statsResult) {
-        setStats({
-          cost: statsResult.cost,
-          profit: statsResult.profit,
-          revenue: statsResult.revenue,
-        });
-      }
-
-      if (resultStockIn && resultStockOut) {
-        setStockInQuantity(resultStockIn.length);
-        setStockOutQuantity(resultStockOut.length);
-      }
-    };
     loadStock();
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => {
+      loadStock();
+      setRefreshing(false);
+    });
   }, []);
 
   const infoMockup: any = {
@@ -81,14 +91,14 @@ const HomeScreen = (props: Props) => {
           name: 'Tổng đơn nhập',
           value: stockInQuantity,
           color: '#fff',
-          size: 18
+          size: 18,
         },
         total_out: {
           id: 2,
           name: 'Tổng đơn bán',
           value: stockOutQuantity,
           color: '#4D4D4D',
-          size: 20
+          size: 20,
         },
       },
     },
@@ -99,13 +109,13 @@ const HomeScreen = (props: Props) => {
           name: 'Doanh thu',
           value: stats.revenue,
           color: '#fff',
-          size: 18
+          size: 18,
         },
         profit: {
           name: 'Lợi nhuận',
           value: stats.profit,
           color: stats.profit > 0 ? '#008B2F' : '#ED0000',
-          size: 20
+          size: 20,
         },
       },
     },
@@ -117,6 +127,9 @@ const HomeScreen = (props: Props) => {
         contentContainerStyle={{
           flexGrow: 1,
         }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         <Image
           style={styles.bgContainer}

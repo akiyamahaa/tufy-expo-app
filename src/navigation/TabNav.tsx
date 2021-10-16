@@ -56,7 +56,7 @@ const TabNav = (props: Props) => {
         component={CustomerSupplierScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <EachTab focused={focused} title="object" />
+            <EachTab focused={focused} title="customer" />
           ),
         }}
       />

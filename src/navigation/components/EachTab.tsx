@@ -44,17 +44,21 @@ const EachTab = (props: Props) => {
       );
     }
   };
+
   return (
     <Box
       style={[
         styles.root,
-        title !== 'object' && {
+        title !== 'customer' && {
           borderRightColor: '#3C096C',
           borderRightWidth: 1,
         },
       ]}
     >
       {renderIcon(title)}
+      <Text textTransform="uppercase" color={focused ? '#ED0000' : '#000'}>
+        {title}
+      </Text>
     </Box>
   );
 };

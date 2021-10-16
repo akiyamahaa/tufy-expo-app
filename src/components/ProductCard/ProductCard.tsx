@@ -1,7 +1,8 @@
-import { Text, View } from "native-base";
-import React from "react";
-import { StyleSheet } from "react-native";
-import { IProductWithQuantity } from "utils/interfaces/products.interface";
+import { Text, View } from 'native-base';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { IProductWithQuantity } from 'utils/interfaces/products.interface';
+import { convertCurrencyVN } from 'utils/utils';
 
 interface Props {
   product: IProductWithQuantity;
@@ -11,7 +12,7 @@ const ProductCard = (props: Props) => {
   const { product } = props;
   const displayName = () => {
     if (product.name?.length > 24) {
-      return product.name.substring(0, 24) + " ...";
+      return product.name.substring(0, 24) + ' ...';
     }
     return product.name;
   };
@@ -23,10 +24,10 @@ const ProductCard = (props: Props) => {
       </View>
       <View>
         <Text style={styles.price}>
-          {"Giá nhập: " + product.price}
+          {'Giá nhập: ' + convertCurrencyVN(product.price, ' VND')}
         </Text>
         <Text style={styles.purchasePrice}>
-          {"Giá bán: " + product.purchasePrice}
+          {'Giá bán: ' + convertCurrencyVN(product.purchasePrice, ' VND')}
         </Text>
       </View>
     </View>
@@ -35,12 +36,12 @@ const ProductCard = (props: Props) => {
 
 const styles = StyleSheet.create({
   root: {
-    width: "100%",
+    width: '100%',
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     marginVertical: 5,
     borderRadius: 10,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 4,
@@ -48,35 +49,35 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 8,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 20,
   },
   productName: {
-    fontFamily: "Montserrat",
-    fontWeight: "700",
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 14,
-    color: "#240046",
+    color: '#240046',
   },
   productAddress: {
-    fontFamily: "Montserrat",
-    fontWeight: "400",
+    fontFamily: 'Montserrat',
+    fontWeight: '400',
     fontSize: 14,
-    color: "#240046",
+    color: '#240046',
   },
   price: {
-    fontFamily: "Montserrat",
-    fontWeight: "700",
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 14,
-    color: "#fc3003",
+    color: '#fc3003',
   },
   purchasePrice: {
-    fontFamily: "Montserrat",
-    fontWeight: "700",
+    fontFamily: 'Montserrat',
+    fontWeight: '700',
     fontSize: 14,
-    color: "#03c6fc",
+    color: '#03c6fc',
   },
 });
 

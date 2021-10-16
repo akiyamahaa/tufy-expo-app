@@ -62,7 +62,9 @@ const SearchStockDialog = (props: Props) => {
       const listDistributor = await getAllDistributors(dispatch);
       // convert Array to Dictionary
       setDistributorList(listDistributor.distributors);
-      setDistributorPhone(listDistributor.distributors[0].phone);
+      if (listDistributor.distributors.length > 0) {
+        setDistributorPhone(listDistributor.distributors[0].phone);
+      }
     };
     loadList();
   }, []);
