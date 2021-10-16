@@ -13,7 +13,7 @@ const CardInventory = (props: Props) => {
       <Box style={styles.infoBGContainer}>
         <Image
           style={styles.bgContainer}
-          source={require('assets/images/card-bg-2.png')}
+          source={require('assets/images/card-bg-1-red.png')}
           alt="background"
         />
         <Box style={styles.infoContainer}>
@@ -26,7 +26,7 @@ const CardInventory = (props: Props) => {
             </Text>
           </Box>
           <Box>
-            <Text bold italic fontSize={20} color="#240046">
+            <Text bold italic fontSize={30} color="#fff">
               {data.quantity}
             </Text>
           </Box>
@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: '#fff',
     borderRadius: 10,
-    width: '100%',
   },
   infoContainer: {
     paddingVertical: 16,
@@ -58,6 +57,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 100,
     width: '100%',
+    borderRadius: 10,
+    right: -5,
   },
 });
 

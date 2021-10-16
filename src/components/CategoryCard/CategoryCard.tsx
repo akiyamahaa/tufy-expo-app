@@ -33,7 +33,7 @@ const CategoryCard = (props: Props) => {
       <View>
         <Text style={styles.customerName}>{displayName()}</Text>
       </View>
-      <Text style={styles.customerPhone}>{category.count + ' sp'}</Text>
+      <Text style={styles.customerPhone}>{category.count + ' Sản phẩm'}</Text>
     </TouchableOpacity>
   );
 };
@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 34,
   },
   customerName: {
-    fontFamily: "Roboto",
+    fontFamily: "Montserrat",
     fontWeight: "700",
     fontSize: 14,
     color: "#240046",
   },
   customerPhone: {
-    fontFamily: "Roboto",
+    fontFamily: "Montserrat",
     fontWeight: "700",
     fontSize: 14,
     color: "#240046",

@@ -30,7 +30,7 @@ const Container = (props: Props) => {
             style={[
               styles.button,
               active
-                ? { backgroundColor: "#F7EFFF" }
+                ? { backgroundColor: "#FFD9D9" }
                 : { backgroundColor: "#fff" },
             ]}
           >
@@ -42,7 +42,7 @@ const Container = (props: Props) => {
             style={[
               styles.button,
               !active
-                ? { backgroundColor: "#F7EFFF" }
+                ? { backgroundColor: "#FFD9D9" }
                 : { backgroundColor: "#fff" },
             ]}
           >
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
-    fontFamily: "Roboto",
+    fontFamily: "Montserrat",
     fontWeight: "700",
     fontSize: 15,
     color: "#240046",
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   children: {
     marginTop: 22,
     flex: 1,
-    backgroundColor: "#F7EFFF",
+    backgroundColor: "#FFE7E7",
     borderRadius: 50,
   },
   childrenContainer: {

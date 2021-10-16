@@ -13,32 +13,27 @@ const CardHome = (props: Props) => {
   return (
     <Box style={styles.boxContainer}>
       <Box style={{ marginBottom: 16 }}>
-        <Text fontSize={20} bold textTransform="uppercase" color="#5200FF">
+        <Text fontSize={20} bold textTransform="uppercase" color="#BE3838">
           {data.name}
         </Text>
       </Box>
       <Box style={styles.infoBGContainer}>
         <Image
           style={styles.bgContainer}
-          source={require('assets/images/card-bg-1.png')}
+          source={require('assets/images/card-bg-1-red.png')}
           alt="background"
         />
         <Box style={styles.infoContainer}>
           {Object.keys(data.info).map((item: any) => (
             <Box flexDirection="row" justifyContent="space-between" key={item}>
-              <Text fontSize={20} fontWeight="bold" color="#240046">
+              <Text fontSize={18} fontWeight="bold" color="#240046">
                 {data.info[item].name}
               </Text>
               <Text
-                fontSize={20}
-                fontWeight="bold"
-                color={
-                  item === 'profit'
-                    ? data.info[item].value > 0
-                      ? '#008B2F'
-                      : '#ED0000'
-                    : '#240046'
-                }
+                fontSize={data.info[item].size}
+                bold
+                color={data.info[item].color}
+                italic
               >
                 {item === 'revenue' || item === 'profit'
                   ? convertCurrencyVN(data.info[item].value, ' VND')
@@ -77,6 +72,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 100,
     width: '100%',
+    borderRadius: 10,
   },
 });
 

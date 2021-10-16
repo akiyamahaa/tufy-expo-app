@@ -49,19 +49,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   customerName: {
-    fontFamily: "Roboto",
+    fontFamily: "Montserrat",
     fontWeight: "700",
     fontSize: 14,
     color: "#240046",
   },
   customerAddress: {
-    fontFamily: "Roboto",
+    fontFamily: "Montserrat",
     fontWeight: "400",
     fontSize: 14,
     color: "#240046",
   },
   customerPhone: {
-    fontFamily: "Roboto",
+    fontFamily: "Montserrat",
     fontWeight: "700",
     fontSize: 14,
     color: "#240046",

@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btnActive: {
-    tintColor: '#4400D5',
+    tintColor: '#ED0000',
   },
   btnInActive: {
     tintColor: '#000',

@@ -25,7 +25,7 @@ const theme = extendTheme({
   components: {
     Text: {
       baseStyle: {
-        fontFamily: 'Roboto',
+        fontFamily: 'Montserrat',
       },
     },
     /*
@@ -47,6 +47,7 @@ export default function App() {
       'Roboto-bold': require('assets/fonts/Roboto-Bold.ttf'),
       'Roboto-italic': require('assets/fonts/Roboto-Italic.ttf'),
       Roboto: require('assets/fonts/Roboto-Regular.ttf'),
+      Montserrat: require('assets/fonts/Montserrat-Regular.ttf'),
     });
   };
 

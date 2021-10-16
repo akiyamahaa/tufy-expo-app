@@ -69,7 +69,6 @@ const HomeScreen = (props: Props) => {
         setStockOutQuantity(resultStockOut.length);
       }
     };
-
     loadStock();
   }, []);
 
@@ -81,11 +80,15 @@ const HomeScreen = (props: Props) => {
           id: 1,
           name: 'Tổng đơn nhập',
           value: stockInQuantity,
+          color: '#fff',
+          size: 18
         },
         total_out: {
           id: 2,
           name: 'Tổng đơn bán',
           value: stockOutQuantity,
+          color: '#4D4D4D',
+          size: 20
         },
       },
     },
@@ -95,10 +98,14 @@ const HomeScreen = (props: Props) => {
         revenue: {
           name: 'Doanh thu',
           value: stats.revenue,
+          color: '#fff',
+          size: 18
         },
         profit: {
           name: 'Lợi nhuận',
           value: stats.profit,
+          color: stats.profit > 0 ? '#008B2F' : '#ED0000',
+          size: 20
         },
       },
     },
@@ -113,7 +120,7 @@ const HomeScreen = (props: Props) => {
       >
         <Image
           style={styles.bgContainer}
-          source={require('assets/images/background-2.png')}
+          source={require('assets/images/background-red.png')}
           alt="background"
         />
         <Box style={styles.titleContainer}>
@@ -134,7 +141,7 @@ const HomeScreen = (props: Props) => {
           </Box>
           <TouchableOpacity onPress={() => navigation.navigate('Inventory')}>
             <Box style={styles.btnStyle}>
-              <Text color="#5200FF" bold fontSize={24}>
+              <Text color="#BE3838" bold fontSize={24}>
                 Tồn kho
               </Text>
             </Box>
@@ -156,7 +163,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   contentContainer: {
-    marginTop: 70,
+    marginTop: 100,
     paddingHorizontal: 8,
     paddingBottom: 20,
     flexDirection: 'column',

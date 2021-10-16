@@ -48,7 +48,7 @@ const InventoryScreen = (props: Props) => {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Image
           style={styles.bgContainer}
-          source={require('assets/images/background-2.png')}
+          source={require('assets/images/background-red.png')}
           alt="background"
         />
         <Box style={styles.titleContainer}>
@@ -83,10 +83,10 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   contentContainer: {
-    marginTop: 50,
+    marginTop: 100,
     paddingHorizontal: 8,
     paddingBottom: 20,
-    backgroundColor: '#5200FF',
+    backgroundColor: '#B52F2F',
   },
   btnStyle: {
     backgroundColor: '#F2EFFF',

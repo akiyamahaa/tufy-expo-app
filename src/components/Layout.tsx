@@ -53,7 +53,7 @@ const Layout = (props: Props) => {
 };
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: "#5200FF",
+    backgroundColor: "#B52F2F",
     minHeight:
       Dimensions.get("window").height - 2 * (StatusBar.currentHeight ?? 0) - 10,
   },
@@ -68,25 +68,25 @@ const styles = StyleSheet.create({
   },
   logo: {
     position: "absolute",
-    top: 14,
-    left: 20,
+    top: 8,
+    left: 14,
     display: "flex",
     flexDirection: "row",
   },
   logoContainer: {
-    marginLeft: 10,
+    marginLeft: 6,
   },
   headingText: {
     color: "#ED0000",
     fontWeight: "700",
-    fontSize: 18,
-    fontFamily: "Roboto",
+    fontSize: 20,
+    fontFamily: "Montserrat",
   },
   description: {
     color: "#9D9D9D",
     fontWeight: "700",
     fontSize: 14,
-    fontFamily: "Roboto",
+    fontFamily: "Montserrat",
     fontStyle: "italic",
   },
   children: {

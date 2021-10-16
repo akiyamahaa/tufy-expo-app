@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
-    fontFamily: "Roboto",
+    fontFamily: "Montserrat",
     fontWeight: "700",
     fontSize: 15,
-    color: "#5200FF",
+    color: "#B52F2F",
   },
 });
 export default CreateSearchBar;
