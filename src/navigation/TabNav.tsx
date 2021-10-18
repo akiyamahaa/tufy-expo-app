@@ -29,7 +29,7 @@ const TabNav = (props: Props) => {
         component={HomeTab}
         options={{
           tabBarIcon: ({ focused }) => (
-            <EachTab focused={focused} title="home" />
+            <EachTab focused={focused} title="Trang chủ" />
           ),
         }}
       />
@@ -38,7 +38,7 @@ const TabNav = (props: Props) => {
         component={StockTab}
         options={{
           tabBarIcon: ({ focused }) => (
-            <EachTab focused={focused} title="stock" />
+            <EachTab focused={focused} title="Kho" />
           ),
         }}
       />
@@ -47,7 +47,7 @@ const TabNav = (props: Props) => {
         component={CategoriesTab}
         options={{
           tabBarIcon: ({ focused }) => (
-            <EachTab focused={focused} title="category" />
+            <EachTab focused={focused} title="Phân loại" />
           ),
         }}
       />
@@ -56,7 +56,7 @@ const TabNav = (props: Props) => {
         component={CustomerSupplierScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <EachTab focused={focused} title="customer" />
+            <EachTab focused={focused} title="Khách hàng" />
           ),
         }}
       />

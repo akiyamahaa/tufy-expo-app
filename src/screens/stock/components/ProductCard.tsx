@@ -15,11 +15,11 @@ const ProductCard = (props: Props) => {
   const totalPrice = active
     ? data.productStockIn.reduce(
         (total: any, item: any) =>
-          total + item.quantity * item.product.purchasePrice,
+          total + item.quantity * item.product.price,
         0
       )
     : data.productStockOut.reduce(
-        (total: any, item: any) => total + item.quantity * item.product.price,
+        (total: any, item: any) => total + item.quantity * item.product.purchasePrice,
         0
       );
 

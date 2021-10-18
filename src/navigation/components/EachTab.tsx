@@ -10,7 +10,7 @@ const EachTab = (props: Props) => {
   const { title, focused } = props;
 
   const renderIcon = (title: string) => {
-    if (title === 'home') {
+    if (title === 'Trang chủ') {
       return (
         <Image
           source={require('assets/icons/home-icon.png')}
@@ -18,7 +18,7 @@ const EachTab = (props: Props) => {
           style={focused ? styles.btnActive : styles.btnInActive}
         />
       );
-    } else if (title === 'stock') {
+    } else if (title === 'Kho') {
       return (
         <Image
           source={require('assets/icons/stock-icon.png')}
@@ -26,7 +26,7 @@ const EachTab = (props: Props) => {
           style={focused ? styles.btnActive : styles.btnInActive}
         />
       );
-    } else if (title === 'category') {
+    } else if (title === 'Phân loại') {
       return (
         <Image
           source={require('assets/icons/category-icon.png')}
@@ -49,14 +49,14 @@ const EachTab = (props: Props) => {
     <Box
       style={[
         styles.root,
-        title !== 'customer' && {
+        title !== 'Khách hàng' && {
           borderRightColor: '#3C096C',
           borderRightWidth: 1,
         },
       ]}
     >
       {renderIcon(title)}
-      <Text textTransform="uppercase" color={focused ? '#ED0000' : '#000'}>
+      <Text textTransform="uppercase" color={focused ? '#ED0000' : '#000'} fontSize={12}>
         {title}
       </Text>
     </Box>

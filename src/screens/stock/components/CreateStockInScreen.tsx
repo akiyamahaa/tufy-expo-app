@@ -28,6 +28,7 @@ const CreateStockInScreen = (props: Props) => {
   const [productQuantity, setProductQuantity] = useState(1);
   const [listProductCart, setListProductCart] = useState<any[]>([]);
 
+
   useEffect(() => {
     const loadList = async () => {
       const listDistributor = await getAllDistributors(dispatch);
@@ -56,7 +57,18 @@ const CreateStockInScreen = (props: Props) => {
       },
       quantity: productQuantity,
     };
-    setListProductCart([...listProductCart, newProduct]);
+    const copyList = [...listProductCart];
+    let exist = false;
+    for (let i = 0; i < copyList.length; i++) {
+      if (copyList[i].product.id === productId) {
+        exist = true;
+        copyList[i].quantity += productQuantity;
+        setListProductCart(copyList);
+      }
+    }
+    if (!exist) {
+      setListProductCart([...listProductCart, newProduct]);
+    }
   };
 
   const onCreateStockIn = async () => {
@@ -72,7 +84,7 @@ const CreateStockInScreen = (props: Props) => {
   };
   const totalStockPrice = listProductCart.reduce(
     (total, item) =>
-      total + item.quantity * objectListProduct[item.product.id].purchasePrice,
+      total + item.quantity * objectListProduct[item.product.id].price,
     0
   );
 
@@ -194,9 +206,12 @@ const CreateStockInScreen = (props: Props) => {
                         <Text fontSize={18} m="1">
                           Đơn giá:{' '}
                           <Text bold>
-                            {
-                              convertCurrencyVN(parseInt(objectListProduct[eachProduct.product.id].purchasePrice),' VND')
-                            }
+                            {convertCurrencyVN(
+                              parseInt(
+                                objectListProduct[eachProduct.product.id].price
+                              ),
+                              ' VND'
+                            )}
                           </Text>
                         </Text>
                       </Box>
@@ -241,7 +256,7 @@ const styles = StyleSheet.create({
   children: {
     marginTop: 22,
     flex: 1,
-    backgroundColor: '#F7EFFF',
+    backgroundColor: '#FFD9D9',
     borderRadius: 50,
   },
   childrenContainer: {

@@ -17,27 +17,29 @@ const InventoryScreen = (props: Props) => {
 
   useEffect(() => {
     const loadInventory = async () => {
-      const { inventories } = await getAllInventory(dispatch);
+      const result = await getAllInventory(dispatch);
 
       setInventoryList(
-        inventories.map((inven: any) => ({
-          name: inven.product.name,
-          category: inven.product.category.name,
-          quantity: inven.quantity,
-        }))
+        result &&
+          result.inventories.map((inven: any) => ({
+            name: inven.product.name,
+            category: inven.product.category.name,
+            quantity: inven.quantity,
+          }))
       );
     };
     loadInventory();
   }, []);
 
   const searchInven = async (textSearch: string) => {
-    const { inventories } = await searchInventory(dispatch, textSearch);
+    const result = await searchInventory(dispatch, textSearch);
     setInventoryList(
-      inventories.map((inven: any) => ({
-        name: inven.product.name,
-        category: inven.product.category.name,
-        quantity: inven.quantity,
-      }))
+      result &&
+        result.inventories.map((inven: any) => ({
+          name: inven.product.name,
+          category: inven.product.category.name,
+          quantity: inven.quantity,
+        }))
     );
   };
 

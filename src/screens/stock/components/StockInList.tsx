@@ -9,34 +9,6 @@ import SearchStockInDialog from './SearchStockInDialog';
 
 interface Props {}
 
-const dataMockup = [
-  {
-    date: '05/10/2021',
-    distributor: 'Orion',
-    price: 100000,
-  },
-  {
-    date: '05/10/2021',
-    distributor: 'Orion',
-    price: 100000,
-  },
-  {
-    date: '05/10/2021',
-    distributor: 'Orion',
-    price: 100000,
-  },
-  {
-    date: '05/10/2021',
-    distributor: 'Orion',
-    price: 100000,
-  },
-  {
-    date: '05/10/2021',
-    distributor: 'Orion',
-    price: 100000,
-  },
-];
-
 const StockInList = (props: any) => {
   const { active } = props;
 

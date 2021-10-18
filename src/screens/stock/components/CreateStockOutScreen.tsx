@@ -55,7 +55,18 @@ const CreateStockOutScreen = (props: Props) => {
       },
       quantity: productQuantity,
     };
-    setListProductCart([...listProductCart, newProduct]);
+    const copyList = [...listProductCart];
+    let exist = false;
+    for (let i = 0; i < copyList.length; i++) {
+      if (copyList[i].product.id === productId) {
+        exist = true;
+        copyList[i].quantity += productQuantity;
+        setListProductCart(copyList);
+      }
+    }
+    if (!exist) {
+      setListProductCart([...listProductCart, newProduct]);
+    }
   };
 
   const onCreateStockIn = async () => {
@@ -71,7 +82,7 @@ const CreateStockOutScreen = (props: Props) => {
   };
   const totalStockPrice = listProductCart.reduce(
     (total, item) =>
-      total + item.quantity * objectListProduct[item.product.id].price,
+      total + item.quantity * objectListProduct[item.product.id].purchasePrice,
     0
   );
 
@@ -195,7 +206,8 @@ const CreateStockOutScreen = (props: Props) => {
                           <Text bold>
                             {convertCurrencyVN(
                               parseInt(
-                                objectListProduct[eachProduct.product.id].price
+                                objectListProduct[eachProduct.product.id]
+                                  .purchasePrice
                               ),
                               ' VND'
                             )}
@@ -217,7 +229,7 @@ const CreateStockOutScreen = (props: Props) => {
                     ]}
                   >
                     <TouchableOpacity onPress={() => setListProductCart([])}>
-                      <Box style={styles.btnStyle} mr='1'>
+                      <Box style={styles.btnStyle} mr="1">
                         <Text>Hủy</Text>
                       </Box>
                     </TouchableOpacity>
@@ -225,7 +237,7 @@ const CreateStockOutScreen = (props: Props) => {
                       <Box
                         style={styles.btnStyle}
                         backgroundColor="#F7EFFF"
-                        ml='1'
+                        ml="1"
                       >
                         <Text>Lưu</Text>
                       </Box>
@@ -244,7 +256,7 @@ const styles = StyleSheet.create({
   children: {
     marginTop: 22,
     flex: 1,
-    backgroundColor: '#F7EFFF',
+    backgroundColor: '#FFD9D9',
     borderRadius: 50,
   },
   childrenContainer: {
