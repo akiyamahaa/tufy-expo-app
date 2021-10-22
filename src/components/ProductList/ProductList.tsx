@@ -37,8 +37,9 @@ const ProductList = (props: Props) => {
   const loadData = async () => {
     try {
       const res = await getAllProduct(dispatch, id);
-      console.log("res", res);
-      setProducts(res.products);
+      if (res && res.products && res.products.length) {
+        setProducts(res.products);
+      }
     } catch (error) {
       console.log("[====error distributors]", error);
     }
@@ -54,7 +55,9 @@ const ProductList = (props: Props) => {
   const search = async (text: string) => {
     try {
       const res = await searchProducts(dispatch, text, id);
-      setProducts(res.products);
+      if (res && res.products && res.products.length) {
+        setProducts(res.products);
+      }
     } catch (error) {
       Alert.alert("Error!");
     }

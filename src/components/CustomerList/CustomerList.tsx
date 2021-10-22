@@ -25,15 +25,17 @@ const CustomerList = (props: Props) => {
   const loadData = async () => {
     try {
       const res = await getAllCustomers(dispatch);
-      setCustomers(res.customers);
+      if (res && res.customers && res.customers.length) {
+        setCustomers(res.customers);
+      }
     } catch (error) {
-      console.log("[====error customer]", error);
+      console.log("[===Í=error customer]", error);
     }
   };
   const search = async (text: string) => {
     try {
       const res = await searchCustomers(dispatch, text);
-      if (res.customer?.id) {
+      if (res && res.customer?.id) {
         setCustomers([res.customer]);
       }
     } catch (error) {

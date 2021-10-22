@@ -30,7 +30,9 @@ const CategoriesList = (props: Props) => {
   const loadData = async () => {
     try {
       const res = await getAllCategories(dispatch);
-      setCategories(res.categories);
+      if (res && res.categories && res.categories.length) {
+        setCategories(res.categories);
+      }
     } catch (error) {
       console.log("[====error categories]", error);
     }
@@ -48,7 +50,9 @@ const CategoriesList = (props: Props) => {
   const search = async (text: string) => {
     try {
       const res = await searchCategories(dispatch, text);
-      setCategories(res.category);
+      if (res && res.categories && res.categories.length) {
+        setCategories(res.categories);
+      }
     } catch (error) {
       Alert.alert("Error!");
     }

@@ -26,7 +26,9 @@ const DistributorList = (props: Props) => {
   const loadData = async () => {
     try {
       const res = await getAllDistributors(dispatch);
-      setDistributors(res.distributors);
+      if (res && res.distributors && res.distributors.length) {
+        setDistributors(res.distributors);
+      }
     } catch (error) {
       console.log("[====error distributors]", error);
     }
@@ -63,7 +65,11 @@ const DistributorList = (props: Props) => {
         active={true}
         createNew={createNewDistributor}
       />
-      <CreateSearchBar setShowModal={setShowModal} search={search} refresh={loadData}/>
+      <CreateSearchBar
+        setShowModal={setShowModal}
+        search={search}
+        refresh={loadData}
+      />
       <View style={{ width: "100%", marginTop: 20 }}>
         {distributors &&
           distributors?.map((distributor) => (
