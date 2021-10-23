@@ -20,14 +20,14 @@ const ProductCard = (props: Props) => {
     <View style={styles.root}>
       <View>
         <Text style={styles.productName}>{displayName()}</Text>
-        {/* <Text style={styles.productAddress}>{product.quantity + " sp"}</Text> */}
       </View>
       <View>
         <Text style={styles.price}>
-          {'Giá nhập: ' + convertCurrencyVN(product.price, ' VND')}
+          {'Giá nhập: ' + convertCurrencyVN(Number(product.price), ' VND')}
         </Text>
         <Text style={styles.purchasePrice}>
-          {'Giá bán: ' + convertCurrencyVN(product.purchasePrice, ' VND')}
+          {'Giá bán: ' +
+            convertCurrencyVN(Number(product.purchasePrice), ' VND')}
         </Text>
       </View>
     </View>

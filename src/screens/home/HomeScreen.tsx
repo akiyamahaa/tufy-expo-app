@@ -44,32 +44,41 @@ const HomeScreen = (props: Props) => {
   });
 
   const loadStock = async () => {
-    const resultStockIn = await getStockInFilter(dispatch, START_DAY, END_DAY);
-    const resultStockOut = await getStockOutFilter(
-      dispatch,
-      START_DAY,
-      END_DAY
-    );
+    try {
+      const resultStockIn = await getStockInFilter(
+        dispatch,
+        START_DAY,
+        END_DAY
+      );
+      const resultStockOut = await getStockOutFilter(
+        dispatch,
+        START_DAY,
+        END_DAY
+      );
 
-    const statsResult = await getStats(
-      dispatch,
-      parseInt(MONTH),
-      parseInt(YEAR)
-    );
+      const statsResult = await getStats(
+        dispatch,
+        parseInt(MONTH),
+        parseInt(YEAR)
+      );
 
-    if (statsResult) {
-      setStats({
-        cost: statsResult.cost,
-        profit: statsResult.profit,
-        revenue: statsResult.revenue,
-      });
-    }
+      if (statsResult) {
+        setStats({
+          cost: statsResult.cost,
+          profit: statsResult.profit,
+          revenue: statsResult.revenue,
+        });
+      }
 
-    if (resultStockIn && resultStockOut) {
-      setStockInQuantity(resultStockIn.length);
-      setStockOutQuantity(resultStockOut.length);
+      if (resultStockIn && resultStockOut) {
+        setStockInQuantity(resultStockIn.length);
+        setStockOutQuantity(resultStockOut.length);
+      }
+    } catch (err) {
+      console.log('err', err);
     }
   };
+  
   useEffect(() => {
     loadStock();
   }, []);

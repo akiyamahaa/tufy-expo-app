@@ -28,7 +28,6 @@ const CreateStockInScreen = (props: Props) => {
   const [productQuantity, setProductQuantity] = useState(1);
   const [listProductCart, setListProductCart] = useState<any[]>([]);
 
-
   useEffect(() => {
     const loadList = async () => {
       const listDistributor = await getAllDistributors(dispatch);
