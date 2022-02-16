@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import SearchField from 'components/CreateSearchBar/SearchField';
 import { Text, Box, Image, Button, Center } from 'native-base';
 import React, { useState, useEffect } from 'react';
@@ -11,6 +12,7 @@ import CardInventory from './components/CardInventory';
 interface Props {}
 
 const InventoryScreen = (props: Props) => {
+  const navigation = useNavigation()
   const dispatch = useDispatch();
 
   const [inventoryList, setInventoryList] = useState<any>([]);
@@ -28,7 +30,11 @@ const InventoryScreen = (props: Props) => {
           }))
       );
     };
-    loadInventory();
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadInventory(); 
+    });
+
+    return unsubscribe;
   }, []);
 
   const searchInven = async (textSearch: string) => {

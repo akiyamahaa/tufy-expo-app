@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import CreateSearchBar from 'components/CreateSearchBar/CreateSearchBar';
 import CustomerCard from 'components/CustomerCard/CustomerCard';
 import NewCustomerSupplier from 'components/NewCustomerSupplier/NewCustomerSupplier';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const DistributorList = (props: Props) => {
+  const navigation = useNavigation()
   const { setShowModal, showModal } = props;
   const [distributors, setDistributors] = useState<IDistributor[]>(
     [] as IDistributor[]
@@ -55,7 +57,11 @@ const DistributorList = (props: Props) => {
     }
   };
   useEffect(() => {
-    loadData();
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadData();
+    });
+
+    return unsubscribe;
   }, []);
   return (
     <>

@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import NewCategory from 'components/NewCategory/NewCategory';
 import { Alert } from 'react-native';
 import CreateSearchBar from 'components/CreateSearchBar/CreateSearchBar';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   setShowModal: (modal: boolean) => void;
@@ -27,6 +28,7 @@ const CategoriesList = (props: Props) => {
     [] as ICategoryWithCount[]
   );
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const loadData = async () => {
     try {
       const res = await getAllCategories(dispatch);
@@ -57,9 +59,14 @@ const CategoriesList = (props: Props) => {
       Alert.alert('Error!');
     }
   };
+
   useEffect(() => {
-    loadData();
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadData();
+    });
+    return unsubscribe;
   }, []);
+  
   return (
     <>
       <CreateSearchBar

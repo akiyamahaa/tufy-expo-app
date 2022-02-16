@@ -45,22 +45,27 @@ const HomeScreen = (props: Props) => {
 
   const loadStock = async () => {
     try {
-      const resultStockIn = await getStockInFilter(
-        dispatch,
-        START_DAY,
-        END_DAY
-      );
-      const resultStockOut = await getStockOutFilter(
-        dispatch,
-        START_DAY,
-        END_DAY
-      );
+      // const resultStockIn = await getStockInFilter(
+      //   dispatch,
+      //   START_DAY,
+      //   END_DAY
+      // );
+      // const resultStockOut = await getStockOutFilter(
+      //   dispatch,
+      //   START_DAY,
+      //   END_DAY
+      // );
 
-      const statsResult = await getStats(
-        dispatch,
-        parseInt(MONTH),
-        parseInt(YEAR)
-      );
+      // const statsResult = await getStats(
+      //   dispatch,
+      //   parseInt(MONTH),
+      //   parseInt(YEAR)
+      // );
+      const [resultStockIn, resultStockOut, statsResult] = await Promise.all([
+        getStockInFilter(dispatch, START_DAY, END_DAY),
+        getStockOutFilter(dispatch, START_DAY, END_DAY),
+        getStats(dispatch, parseInt(MONTH), parseInt(YEAR)),
+      ]);
 
       if (statsResult) {
         setStats({
@@ -78,17 +83,13 @@ const HomeScreen = (props: Props) => {
       console.log('err', err);
     }
   };
-  
-  useEffect(() => {
-    loadStock();
-  }, []);
 
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(1000).then(() => {
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
       loadStock();
-      setRefreshing(false);
     });
+
+    return unsubscribe;
   }, []);
 
   const infoMockup: any = {
@@ -136,9 +137,6 @@ const HomeScreen = (props: Props) => {
         contentContainerStyle={{
           flexGrow: 1,
         }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
       >
         <Image
           style={styles.bgContainer}

@@ -27,7 +27,11 @@ const StockInList = (props: any) => {
     setStockList(resultStockIn.stockIn);
   };
   useEffect(() => {
-    loadStock();
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadStock();
+    });
+
+    return unsubscribe;
   }, []);
 
   const refreshList = () => {

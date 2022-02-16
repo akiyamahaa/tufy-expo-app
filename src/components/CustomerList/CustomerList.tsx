@@ -12,6 +12,7 @@ import {
 import CreateSearchBar from 'components/CreateSearchBar/CreateSearchBar';
 import NewCustomerSupplier from 'components/NewCustomerSupplier/NewCustomerSupplier';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
   setShowModal: (value: boolean) => void;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const CustomerList = (props: Props) => {
+  const navigation = useNavigation()
   const { setShowModal, showModal } = props;
   const [customers, setCustomers] = useState<ICustomer[]>([] as ICustomer[]);
   const dispatch = useDispatch();
@@ -54,7 +56,11 @@ const CustomerList = (props: Props) => {
     }
   };
   useEffect(() => {
-    loadData();
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadData();
+    });
+
+    return unsubscribe;
   }, []);
   return (
     <>

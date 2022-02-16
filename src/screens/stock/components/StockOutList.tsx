@@ -54,7 +54,10 @@ const StockOutList = (props: any) => {
     setStockList(resultStockOut.stockOut);
   };
   useEffect(() => {
-    loadStock();
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadStock();
+    });
+    return unsubscribe;
   }, []);
 
   const refreshList = () => {
